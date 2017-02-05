@@ -1,16 +1,15 @@
 import {OnInit, Component} from "@angular/core";
-import {User} from "../_models/user";
+import {TokenHolder} from "../_models/TokenHolder";
 import {UserService} from "../_services/user.service";
 
 @Component({
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  currentUser: User;
-  users: User[] = [];
+  tokenHolder: TokenHolder;
 
   constructor(private userService: UserService) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.tokenHolder = JSON.parse(localStorage.getItem('tokenHolder'));
   }
 
   ngOnInit() {

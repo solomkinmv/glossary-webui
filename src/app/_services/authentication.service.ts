@@ -12,15 +12,15 @@ export class AuthenticationService {
 
     return this.http.post('/api/auth/login', body, options)
       .map((response: Response) => {
-        let user = response.json();
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+        const tokenHolder = response.json();
+        if (tokenHolder && tokenHolder.token) {
+          localStorage.setItem('tokenHolder', JSON.stringify(tokenHolder));
         }
       })
   }
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('tokenHolder');
   }
 }
