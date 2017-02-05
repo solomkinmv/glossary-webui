@@ -12,6 +12,8 @@ import {AlertService} from "./_services/alert.service";
 import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
 import {routing} from "./app.routing";
+import {DictionaryComponent} from "./dictionary/dictionary.component";
+import {WordSetService} from "./_services/wordset.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import {routing} from "./app.routing";
     AlertComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DictionaryComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import {routing} from "./app.routing";
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService
+    UserService,
+    WordSetService
   ],
   bootstrap: [AppComponent]
 })

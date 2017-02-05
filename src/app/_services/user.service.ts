@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
-import {RequestOptions, Http, Response, Headers} from "@angular/http";
+import {Http, Response} from "@angular/http";
 import {TokenHolder} from "../_models/TokenHolder";
+import {JwtUtil} from "../_util/jwt.util";
 
 @Injectable()
 export class UserService {
@@ -8,20 +9,13 @@ export class UserService {
   }
 
   me() {
-    return this.http.get('/api/me', this.jwt()).map((response: Response) => response.json());
+    return this.http.get('/api/me', JwtUtil.getRequestOptions())
+      .map((response: Response) => response.json());
   }
 
   create(user: TokenHolder) {
-    return this.http.post('/api/auth/register', this.jwt()).map((response: Response) => response.json());
-  }
-
-  // private helper methods
-  private jwt() {
-    // create authorization header with jwt token
-    let tokenHolder = JSON.parse(localStorage.getItem('tokenHolder'));
-    if (tokenHolder && tokenHolder.token) {
-      let headers = new Headers({'Authorization': 'Bearer ' + tokenHolder.token})
-      return new RequestOptions({headers: headers});
-    }
+    // todo: fix this method
+    return this.http.post('/api/auth/register', JwtUtil.getRequestOptions())
+      .map((response: Response) => response.json());
   }
 }
