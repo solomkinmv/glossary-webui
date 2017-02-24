@@ -14,6 +14,7 @@ import {UserService} from "./_services/user.service";
 import {routing} from "./app.routing";
 import {DictionaryComponent} from "./dictionary/dictionary.component";
 import {WordSetService} from "./_services/wordset.service";
+import {WordSetComponent} from "./dictionary/word-set.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {WordSetService} from "./_services/wordset.service";
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    DictionaryComponent
+    DictionaryComponent,
+    WordSetComponent
   ],
   imports: [
     BrowserModule,

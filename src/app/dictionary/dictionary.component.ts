@@ -4,7 +4,7 @@ import {WordSet} from "../_models/WordSet";
 import {WordSetService} from "../_services/wordset.service";
 
 @Component({
-  templateUrl: 'dictionary.component.html'
+  templateUrl: './dictionary.component.html'
 })
 export class DictionaryComponent implements OnInit {
   tokenHolder: TokenHolder;
@@ -15,7 +15,7 @@ export class DictionaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wordSetService.get()
+    this.wordSetService.getAll()
       .then((wordSets: Array<WordSet>) => this.wordSets = wordSets);
   }
 }

@@ -1,0 +1,11 @@
+<div *ngIf="wordSet">
+  <h2>{{wordSet.name}}</h2>
+  <p>{{wordSet.description}}</p>
+
+  <ul class="list-group">
+    <li *ngFor="let studiedWord of wordSet.studiedWords" class="list-group-item justify-content-between">
+      {{studiedWord.word.text}}
+      <span class="badge badge-default badge-pill">{{studiedWord.stage}}</span>
+    </li>
+  </ul>
+</div>

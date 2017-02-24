@@ -8,7 +8,7 @@ export class WordSetService {
   constructor(private http: Http) {
   }
 
-  get(): Promise<Array<WordSet>> {
+  getAll(): Promise<Array<WordSet>> {
     return this.http.get("/api/wordSets", JwtUtil.getRequestOptions())
       .toPromise()
       .then((response: Response) => {
@@ -16,4 +16,12 @@ export class WordSetService {
       });
   }
 
+  get(id: number | string) {
+    return this.http.get(`/api/wordSets/${id}`, JwtUtil.getRequestOptions())
+      .toPromise()
+      .then((response: Response) => {
+        console.log(response.json());
+        return response.json().wordSet;
+      })
+  }
 }

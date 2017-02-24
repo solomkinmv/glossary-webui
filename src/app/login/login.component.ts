@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     // reset login status
     this.authenticationService.logout();
 
-    // get return url from router parameters or default to '/
+    // getAll return url from router parameters or default to '/
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
