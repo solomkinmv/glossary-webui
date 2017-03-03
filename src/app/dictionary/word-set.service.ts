@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
-import {WordSet} from "../_models/WordSet";
+import {WordSet} from "./word-set";
 import {JwtUtil} from "../_util/jwt.util";
 
 @Injectable()
@@ -9,6 +9,7 @@ export class WordSetService {
   }
 
   getAll(): Promise<Array<WordSet>> {
+    console.log("WordSetService.getAll()");
     return this.http.get("/api/wordSets", JwtUtil.getRequestOptions())
       .toPromise()
       .then((response: Response) => {
@@ -17,6 +18,7 @@ export class WordSetService {
   }
 
   get(id: number | string) {
+    console.log(`WordSetService.get(${id})`);
     return this.http.get(`/api/wordSets/${id}`, JwtUtil.getRequestOptions())
       .toPromise()
       .then((response: Response) => {

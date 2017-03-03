@@ -7,39 +7,36 @@ import {AlertComponent} from "./_directives/alert.component";
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
-import {AuthGuard} from "./_guards/auth.guard";
 import {AlertService} from "./_services/alert.service";
 import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
-import {routing} from "./app.routing";
-import {DictionaryComponent} from "./dictionary/dictionary.component";
-import {WordSetService} from "./_services/wordset.service";
-import {WordSetComponent} from "./dictionary/word-set.component";
+import {AppRoutingModule} from "./app.routing";
+import {Router} from "@angular/router";
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule
+  ],
   declarations: [
     AppComponent,
     AlertComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    DictionaryComponent,
-    WordSetComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    routing
   ],
   providers: [
-    AuthGuard,
     AlertService,
     AuthenticationService,
     UserService,
-    WordSetService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  // Diagnostic only: inspect router configuration
+  constructor(router: Router) {
+    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+  }
 }

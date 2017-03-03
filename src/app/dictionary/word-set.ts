@@ -1,4 +1,4 @@
-import {StudiedWord} from "./StudiedWord";
+import {StudiedWord} from "./studied-word";
 
 export class WordSet {
   id: number;
