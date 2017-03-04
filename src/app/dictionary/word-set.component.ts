@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {WordSet} from "./word-set";
-import {WordSetService} from "./word-set.service";
+import {WordSetService} from "../_services/word-set.service";
 import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({

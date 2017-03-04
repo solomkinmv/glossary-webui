@@ -1,7 +1,7 @@
 import {OnInit, Component} from "@angular/core";
 import {TokenHolder} from "../_models/TokenHolder";
 import {WordSet} from "./word-set";
-import {WordSetService} from "./word-set.service";
+import {WordSetService} from "../_services/word-set.service";
 
 @Component({
   templateUrl: './dictionary.component.html'

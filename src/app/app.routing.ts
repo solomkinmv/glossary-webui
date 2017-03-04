@@ -9,6 +9,7 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'dictionary', loadChildren: 'app/dictionary/dictionary.module#DictionaryModule', canLoad: [AuthGuard]},
+  {path: 'practice', loadChildren: 'app/practice/practice.module#PracticeModule', canLoad: [AuthGuard]},
   {path: '', pathMatch: 'full', component: HomeComponent},
 
   // otherwise redirect to home

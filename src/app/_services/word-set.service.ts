@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
-import {WordSet} from "./word-set";
+import {WordSet} from "../dictionary/word-set";
 import {JwtUtil} from "../_util/jwt.util";
 
 @Injectable()

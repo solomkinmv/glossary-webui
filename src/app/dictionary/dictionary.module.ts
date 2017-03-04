@@ -2,8 +2,6 @@ import {NgModule} from "@angular/core";
 import {DictionaryRoutingModule} from "./dictionary-routing.module";
 import {DictionaryComponent} from "./dictionary.component";
 import {WordSetComponent} from "./word-set.component";
-import {WordSetService} from "./word-set.service";
-import {WordService} from "./word.service";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 
@@ -18,8 +16,8 @@ import {CommonModule} from "@angular/common";
     WordSetComponent
   ],
   providers: [
-    WordSetService,
-    WordService
+    // WordSetService,
+    // WordService
   ]
 })
 export class DictionaryModule {
