@@ -10,7 +10,8 @@ export class UserService {
 
   me() {
     return this.http.get('/api/me', JwtUtil.getRequestOptions())
-      .map((response: Response) => response.json());
+      .toPromise()
+      .then((response: Response) => response.json());
   }
 
   create(user: TokenHolder) {
