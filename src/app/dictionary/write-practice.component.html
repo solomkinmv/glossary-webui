@@ -1,0 +1,10 @@
+<h1>Training mode</h1>
+<div *ngIf="word">
+  <h2>{{word.word}}</h2>
+  <div>
+    <input [(ngModel)]="answer" placeholder="Input translation"/>
+  </div>
+</div>
+<p>
+  <button (click)="gotoHeroes()">answer</button>
+</p>

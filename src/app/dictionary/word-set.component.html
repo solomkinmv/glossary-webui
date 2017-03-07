@@ -2,6 +2,7 @@
   <h2>{{wordSet.name}}</h2>
   <p>{{wordSet.description}}</p>
 
+  <button routerLink="practice/{{wordSet.id}}" class="btn btn-primary">Practice</button>
   <ul class="list-group">
     <li *ngFor="let studiedWord of wordSet.studiedWords" class="list-group-item justify-content-between">
       {{studiedWord.word.text}}
