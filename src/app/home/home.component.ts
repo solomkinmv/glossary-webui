@@ -1,18 +1,22 @@
 import {OnInit, Component} from "@angular/core";
-import {TokenHolder} from "../_models/TokenHolder";
-import {UserService} from "../_services/user.service";
+import {AuthGuard} from "../_guards/auth.guard";
 
 @Component({
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  tokenHolder: TokenHolder;
+  private loggedIn: boolean = false;
 
-  constructor(private userService: UserService) {
-    this.tokenHolder = JSON.parse(localStorage.getItem('tokenHolder'));
+  constructor(private authGuard: AuthGuard) {
   }
 
   ngOnInit() {
     // load home component
+
+    // let url = `/${this.route.path}`;
+
+    this.authGuard.isLoggedIn()
+      .then((logged: boolean) => this.loggedIn = logged)
+      .catch(e => console.log("User is not logged in"));
   }
 }

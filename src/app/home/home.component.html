@@ -1,4 +1,8 @@
-<div class="col-md-6 col-md-offset-3">
-  <h1>Index</h1>
+<h1>Glossary Index Page</h1>
+
+<div *ngIf="!loggedIn">
   <p><a [routerLink]="['/login']">Login</a></p>
+</div>
+<div *ngIf="loggedIn">
+  <p>You are so cool!</p>
 </div>
