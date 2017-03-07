@@ -1,12 +1,12 @@
-<div class="col-md-6 col-md-offset-3">
-  <h2>Word Sets</h2>
-  <ul>
-    <div *ngFor="let wordSet of wordSets" class="card">
-      <div class="card-block">
-        <h4 class="card-title">{{wordSet.name}}</h4>
-        <p class="card-text">{{wordSet.description}}</p>
-        <a href="/set/{{wordSet.id}}" class="btn btn-primary">More</a>
-      </div>
+<h2>Word Sets</h2>
+
+<div class="card-columns">
+  <div *ngFor="let wordSet of wordSets" class="card">
+    <div class="card-block">
+      <h4 class="card-title">{{wordSet.name}}</h4>
+      <p class="card-text">{{wordSet.description}}</p>
+      <a routerLink="set/{{wordSet.id}}" class="btn btn-primary">Details</a>
+      <a routerLink="practice/{{wordSet.id}}" class="btn btn-primary">Practice</a>
     </div>
-  </ul>
+  </div>
 </div>
