@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
 import {JwtUtil} from "../_util/jwt.util";
-
+import {Word} from '../dictionary/word';
 @Injectable()
 export class WordService {
   constructor(private http: Http) {
@@ -13,5 +13,13 @@ export class WordService {
       .then((response: Response) => {
         return response.json().wordSet;
       })
+  }
+
+  add(word: Word) {
+  	return this.http.post('/api/words', word, JwtUtil.getRequestOptions())
+  	    .toPromise()
+        .then((response: Response) => {
+            return +response.headers.get('Location').split('/').pop();
+        });
   }
 }

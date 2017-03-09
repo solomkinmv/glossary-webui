@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
 import {WordSet} from "../dictionary/word-set";
 import {JwtUtil} from "../_util/jwt.util";
-
+import {Word} from '../dictionary/word';
 @Injectable()
 export class WordSetService {
   constructor(private http: Http) {
@@ -24,6 +24,16 @@ export class WordSetService {
       .then((response: Response) => {
         console.log(response.json());
         return response.json().wordSet;
-      })
+      });
+  }
+
+  addWord(wordSet: WordSet, word: Word): Promise<WordSet> {
+    return this.http.post(`/api/wordSets/${wordSet.id}/words`,
+                          {id : word.id},
+                          JwtUtil.getRequestOptions())  
+                    .toPromise()
+                    .then((response: Response) => {
+                      return response.json().wordSet;
+                    });
   }
 }
