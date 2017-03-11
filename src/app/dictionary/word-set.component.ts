@@ -75,12 +75,17 @@ export class WordSetComponent implements OnInit {
     if(!existingWord) {
       this.newWord.text = text;
     } else {
-      this.addExistingWord(existingWord);
-      input.value = null;
+      this.addExistingWord(existingWord, input);
     }
+  }
+  cancelAddingNewWord(textInput: HTMLInputElement):void {
+    this.newWord = new Word(null, '', '');
+    textInput.value = null;
   }
 
   addNewWord(input: HTMLInputElement): void {
+    if(!this.newWord.translation) return;
+
     this.wordService.add(this.newWord)
       .then((newWordId: number) => {
         this.newWord.id = newWordId;
@@ -97,16 +102,17 @@ export class WordSetComponent implements OnInit {
       .then(() => this.searchTerms.next(''));
   }
 
-  addExistingWord(word: Word): void {
+
+  addExistingWord(word: Word, searchInput: HTMLInputElement): void {
     this.wordSetService.addWord(this.wordSet, word)
       .then((wordSet: WordSet) => {
         this.wordSet = wordSet;
       })
       .catch((err) => console.log(err))
       .then(() => {
-        this.searchTerms.next('');
+        this.resetWords();
         this.newWord = new Word(null,'','');
-
+        searchInput.value = null;
       });
   }
 
