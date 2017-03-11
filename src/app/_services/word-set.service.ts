@@ -3,6 +3,8 @@ import {Http, Response} from "@angular/http";
 import {WordSet} from "../dictionary/word-set";
 import {JwtUtil} from "../_util/jwt.util";
 import {Word} from '../dictionary/word';
+import {StudiedWord} from '../dictionary/studied-word';
+
 @Injectable()
 export class WordSetService {
   constructor(private http: Http) {
@@ -35,5 +37,11 @@ export class WordSetService {
                     .then((response: Response) => {
                       return response.json().wordSet;
                     });
+  }
+
+  removeWord(wordSet: WordSet, studiedWord: StudiedWord): Promise<any> {
+    return this.http
+      .delete(`/api/wordSets/${wordSet.id}/words/${studiedWord.id}`, JwtUtil.getRequestOptions())
+      .toPromise();
   }
 }
