@@ -51,9 +51,11 @@ export class WordSetComponent implements OnInit {
         ? this.wordService.search(term)
         // or the observable of empty heroes if there was no search term
         : Observable.of<Word[]>([]))
-      .switchMap((words : Word[]) => {
-        this.wordsArray = words.slice(0,5);
-        return Observable.of<Word[]>(this.wordsArray);
+      .switchMap((words: Word[]) => {
+        const filteredWords = words.filter((w:Word) => {
+          return !this.wordSet.studiedWords.find((sw: StudiedWord) => sw.word.id === w.id);
+        });
+        return Observable.of(filteredWords.slice(0,5));
       })
       .catch(error => {
         // TODO: add real error handling
