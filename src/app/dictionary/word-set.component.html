@@ -1,14 +1,33 @@
 <div *ngIf="wordSet">
   <h2>{{wordSet.name}}</h2>
   <p>{{wordSet.description}}</p>
-  <input type="text" [(ngModel)]="newWordText" placeholder="word">
-  <input type="text" [(ngModel)]="newWordTranslation" placeholder="translation">
-  <button (click)="addWord()" class="btn btn-primary">Add</button>
-  <button routerLink="practice/{{wordSet.id}}" class="btn btn-primary">Practice</button>
+  <div class="form-group">
+	  <input #searchBox type="text"  (keyup)="search(searchBox.value, searchBox)" (keyup.enter)="startAddingNewWord(searchBox.value, searchBox)" class="form-control" placeholder="word" aria-describedby="createWordHelp">
+	  <small *ngIf="!newWord.text && searchBox.value" id="createWordHelp" class="text-muted">
+      Press 'Enter' key to create word.
+    </small>
+	  <div *ngIf="words" class="list-group">
+	    <a *ngFor="let word of words | async;"
+	         (click)="addExistingWord(word)" class="list-group-item list-group-item-action flex-column align-items-start" >
+	      {{word.text}} - {{word.translation}}
+	    </a>
+	  </div>
+  </div>
+  <div *ngIf="newWord.text">
+	  <div class="form-group">
+		  <input type="text" [(ngModel)]="newWord.translation" (keyup.enter)="addNewWord(searchBox)" class="form-control" placeholder="translation">
+	  </div>
+	  <div class="form-group offset-sm-4">
+		  <button (click)="addNewWord(searchBox)" class="btn btn-primary col-sm-6">Add</button>
+	  </div>
+  </div>
+  <a routerLink="../../practice/{{wordSet.id}}" class="btn btn-primary">Practice</a>
   <ul class="list-group">
     <li *ngFor="let studiedWord of wordSet.studiedWords" class="list-group-item justify-content-between">
-      {{studiedWord.word.text}}
-      <span class="badge badge-default badge-pill">{{studiedWord.stage}}</span>
+      <div class="col-sm-3">{{studiedWord.word.text}}</div>
+      <div class="col-sm-3">{{studiedWord.word.translation}}</div>
+      <div class="col-sm-3"><span class="badge badge-default badge-pill">{{studiedWord.stage}}</span></div>
+      <div class="col-sm-3"><button type="button"  (click)="removeWord(studiedWord)" class="btn btn-danger pull-right"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div>
     </li>
   </ul>
 </div>

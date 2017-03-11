@@ -1,13 +1,15 @@
 <h1>Training mode</h1>
 <div *ngIf="currentWord">
-  <h2>{{currentWord.word.text}}</h2>
-  <h3 *ngIf="isWrong">Wrong translation!<br>Answer: {{currentWord.word.translation}}</h3>
-  <div>
-    <input [(ngModel)]="currentTranslation"  (keyup.enter)="answer()" placeholder="Input translation"/>
+  <div class="form-group col-sm-6"> 
+  	<h2>{{currentWord.word.text}}</h2>
+  	<h3 *ngIf="isWrong">Wrong translation!<br>Answer: {{currentWord.word.translation}}</h3>
   </div>
-	<p>
-	  <button (click)="answer()">answer</button>
-	</p>
+  <div class="form-group col-sm-6">
+    <input [(ngModel)]="currentTranslation"  (keyup.enter)="answer()" placeholder="Input translation" class="form-control"/>
+  </div>
+	<div class="form-group col-sm-6">
+	  <button class="btn btn btn-primary " (click)="answer()">answer</button>
+	</div>
 </div>
 <div *ngIf="wordSet && currentIndex === wordSet.studiedWords.length">
 	<h2>Congratulations!<br>You have finished leaning wordset!</h2>
