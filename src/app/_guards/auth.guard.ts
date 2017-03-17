@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route} from "@angular/router";
 import {Observable} from "rxjs";
 import {UserService} from "../_services/user.service";
+
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
   private me: Object;
@@ -24,6 +25,17 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   checkLogin(url: string): Promise<boolean> {
+    return this.isLoggedIn()
+      .catch(e => {
+        console.log("CheckLogin failed");
+        // not logged in so redirect to login page with the return url
+        // todo: save return url
+        this.router.navigate(['/login']);
+        return false;
+      });
+  }
+
+  isLoggedIn(): Promise<boolean> {
     return this.userService.me()
       .then(data => {
         console.log("CheckLogin me:");
@@ -31,13 +43,6 @@ export class AuthGuard implements CanActivate, CanLoad {
         if (data['username']) {
           return true;
         }
-      })
-      .catch(e => {
-        console.log("CheckLogin failed");
-        // not logged in so redirect to login page with the return url
-        // todo: save return url
-        this.router.navigate(['/login']);
-        return false;
       });
   }
 }
