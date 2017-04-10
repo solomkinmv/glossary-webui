@@ -1,22 +1,18 @@
-import {OnInit, Component} from "@angular/core";
-import {TokenHolder} from "../_models/TokenHolder";
-import {WordSet} from "./word-set";
-import {DictionaryService} from "../_services/dictionary.service";
-import {Dictionary} from "./dictionary";
+import {Component, OnInit} from "@angular/core";
+import {WordSet} from "./_models/word-set";
+import {WordSetService} from "./_services/word-set.service";
+import {Observable} from "rxjs";
 
 @Component({
   templateUrl: './dictionary.component.html'
 })
 export class DictionaryComponent implements OnInit {
-  tokenHolder: TokenHolder;
-  wordSets: Array<WordSet>;
+  private sets: Observable<WordSet[]>;
 
-  constructor(private dictionaryService: DictionaryService) {
-    this.tokenHolder = JSON.parse(localStorage.getItem('tokenHolder'));
+  constructor(private wordSetService: WordSetService) {
   }
 
   ngOnInit() {
-    this.dictionaryService.get()
-      .then((dictionary: Dictionary) => this.wordSets = dictionary.wordSets);
+    this.sets = this.wordSetService.getAll();
   }
 }

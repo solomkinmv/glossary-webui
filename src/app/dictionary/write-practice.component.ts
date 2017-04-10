@@ -1,20 +1,20 @@
 import {Component, OnInit} from "@angular/core";
-import {WordSet} from "../dictionary/word-set";
+import {WordSet} from "./_models/word-set";
 import {ActivatedRoute, Params} from "@angular/router";
-import {WordSetService} from "../_services/word-set.service";
-import {StudiedWord} from "./studied-word";
+import {WordSetService} from "./_services/word-set.service";
+import {Word} from "./_models/word";
 
 @Component({
   templateUrl: 'write-practice.component.html'
 })
 export class WritePracticeComponent implements OnInit {
-  wordSet: WordSet;
+  set: WordSet;
   currentIndex = 0;
-  currentWord: StudiedWord;
-  currentTranslation: string = '';
-  isWrong : boolean;
+  currentWord: Word;
+  currentTranslation = '';
+  isWrong: boolean;
 
-  mistakes : Set<number> = new Set<number>();
+  mistakes = new Set<number>();
 
   constructor(private route: ActivatedRoute,
               private wordSetService: WordSetService) {
@@ -24,28 +24,28 @@ export class WritePracticeComponent implements OnInit {
     console.log("WritePracticeComponent init");
     this.route.params
       .switchMap((params: Params) => this.wordSetService.get(+params['id']))
-      .subscribe((wordSet: WordSet) => {
-        this.wordSet = wordSet;
-        this.currentWord = this.wordSet.studiedWords[this.currentIndex];
+      .subscribe((set: WordSet) => {
+        this.set = set;
+        this.currentWord = this.set.words[this.currentIndex];
       });
   }
 
-  answer() {
-    if (this.currentWord.word.translation === this.currentTranslation) {
+  private answer() {
+    if (this.currentWord.translation === this.currentTranslation) {
       this.nextWord();
     } else {
       this.isWrong = true;
       this.mistakes.add(this.currentWord.id);
     }
-    
+
   }
 
   private nextWord() {
     this.isWrong = false;
     this.currentTranslation = '';
     this.currentIndex++;
-    if(this.currentIndex < this.wordSet.studiedWords.length) {
-      this.currentWord = this.wordSet.studiedWords[this.currentIndex];
+    if (this.currentIndex < this.set.words.length) {
+      this.currentWord = this.set.words[this.currentIndex];
     } else {
       this.currentWord = null;
     }

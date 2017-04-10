@@ -12,9 +12,6 @@ import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
 import {AppRoutingModule} from "./app.routing";
 import {Router} from "@angular/router";
-import {WordService} from "./_services/word.service";
-import {WordSetService} from "./_services/word-set.service";
-import {DictionaryService} from "./_services/dictionary.service";
 
 @NgModule({
   imports: [
@@ -33,10 +30,7 @@ import {DictionaryService} from "./_services/dictionary.service";
   providers: [
     AlertService,
     AuthenticationService,
-    UserService,
-    WordService,
-    WordSetService,
-    DictionaryService
+    UserService
   ],
   bootstrap: [AppComponent]
 })

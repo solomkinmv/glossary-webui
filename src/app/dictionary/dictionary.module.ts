@@ -5,6 +5,9 @@ import {WordSetComponent} from "./word-set.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {WritePracticeComponent} from "./write-practice.component";
+import {PracticeService} from "./_services/practice.service";
+import {WordService} from "./_services/word.service";
+import {WordSetService} from "./_services/word-set.service";
 
 @NgModule({
   imports: [
@@ -18,8 +21,9 @@ import {WritePracticeComponent} from "./write-practice.component";
     WritePracticeComponent
   ],
   providers: [
-    // WordSetService,
-    // WordService
+    WordSetService,
+    WordService,
+    PracticeService
   ]
 })
 export class DictionaryModule {

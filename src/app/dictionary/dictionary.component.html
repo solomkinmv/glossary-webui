@@ -1,12 +1,12 @@
 <h2>Word Sets</h2>
 
 <div class="card-columns">
-  <div *ngFor="let wordSet of wordSets" class="card">
+  <div *ngFor="let set of sets | async" class="card">
     <div class="card-block">
-      <h4 class="card-title">{{wordSet.name}}</h4>
-      <p class="card-text">{{wordSet.description}}</p>
-      <a routerLink="set/{{wordSet.id}}" class="btn btn-primary">Details</a>
-      <a routerLink="practice/{{wordSet.id}}" class="btn btn-primary">Practice</a>
+      <h4 class="card-title">{{set.name}}</h4>
+      <p class="card-text">{{set.description}}</p>
+      <a routerLink="set/{{set.id}}" class="btn btn-primary">Details</a>
+      <a routerLink="practice/{{set.id}}" class="btn btn-primary">Practice</a>
     </div>
   </div>
 </div>
