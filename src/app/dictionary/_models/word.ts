@@ -8,8 +8,4 @@ export class Word {
               public image: string,
               public sound: string) {
   }
-
-  toString(): string {
-    return JSON.stringify(this);
-  }
 }
