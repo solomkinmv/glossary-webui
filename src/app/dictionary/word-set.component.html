@@ -1,36 +1,47 @@
 <div *ngIf="set">
   <h2>{{set.name}}</h2>
   <p>{{set.description}}</p>
+
   <div class="form-group">
-	  <input #searchBox type="text"  (keyup)="search(searchBox.value, searchBox)" (keyup.enter)="startAddingNewWord(searchBox.value, searchBox)" class="form-control" placeholder="word" aria-describedby="createWordHelp">
-	  <small *ngIf="!newWord.text && searchBox.value" id="createWordHelp" class="text-muted">
-      Press 'Enter' key to create word.
-    </small>
-    <div *ngIf="searchRecords" class="list-group">
-      <a *ngFor="let word of searchRecords | async;"
-	         (click)="addExistingWord(word, searchBox)" class="list-group-item list-group-item-action flex-column align-items-start" >
-	      {{word.text}} - {{word.translation}}
-	    </a>
-	  </div>
+    <input type="text" (keyup)="search()"
+           (keyup.escape)="initSearch()"
+           class="form-control" placeholder="word"
+           [(ngModel)]="newWord.text">
+
+    <!--suggested words-->
+    <div class="list-group">
+      <a *ngFor="let record of searchRecords | async;"
+         (click)="chooseWord(record)" class="list-group-item list-group-item-action flex-column align-items-start">
+        {{record.text}} - {{record.translations.join(", ")}}
+      </a>
+      <a *ngIf="newWord.text" class="list-group-item list-group-item-action flex-column align-items-start">
+        <input type="text" (keyup.enter)="chooseTranslation(newWord.translation)"
+               (keyup.escape)="initSearch()" placeholder="translation"
+               class="form-control" [(ngModel)]="newWord.translation">
+      </a>
+    </div>
+
+    <!--suggested translations-->
+    <div class="list-group">
+      <a *ngFor="let translation of alternativeTranslations;"
+         (click)="chooseTranslation(translation)"
+         class="list-group-item list-group-item-action flex-column align-items-start">
+        {{translation}}
+      </a>
+    </div>
   </div>
-  <div *ngIf="newWord.text">
-	  <div class="form-group">
-		  <input #translation type="text" [(ngModel)]="newWord.translation" (keyup.enter)="addNewWord(searchBox)" class="form-control" placeholder="translation">
-	  </div>
-	  <div class="form-group">
-		  <button (click)="addNewWord(searchBox)" class="btn btn-primary" [disabled]="!translation.value.trim()">Add</button>
-      <button type="button" class="btn btn-warning" (click)="cancelAddingNewWord(searchBox)">Cancel</button>
-	  </div>
-  </div>
+
   <a routerLink="../../practice/{{set.id}}" class="btn btn-primary">Practice</a>
   <ul class="list-group">
     <li *ngFor="let word of set.words" class="list-group-item justify-content-between">
       <div class="col-sm-3">{{word.text}}</div>
       <div class="col-sm-3">{{word.translation}}</div>
-      <div class="col-sm-3"><span class="badge badge-default badge-pill">{{word.stage}}</span></div>
       <div class="col-sm-3">
-        <button type="button" (click)="removeWord(word)" class="btn btn-danger pull-right"><i class="fa fa-trash-o"
-                                                                                              aria-hidden="true"></i>
+        <span class="badge badge-default badge-pill">{{word.stage}}</span>
+      </div>
+      <div class="col-sm-3">
+        <button type="button" (click)="removeWord(word)" class="btn btn-danger pull-right ">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
       </div>
     </li>

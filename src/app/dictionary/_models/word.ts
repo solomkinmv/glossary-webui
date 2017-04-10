@@ -1,11 +1,12 @@
 import {WordStage} from "./word-stage";
 
 export class Word {
-  constructor(public id: number,
-              public text: string,
+  public id: number;
+  public stage: WordStage;
+  public sound: string;
+
+  constructor(public text: string,
               public translation: string,
-              public stage: WordStage,
-              public image: string,
-              public sound: string) {
+              public image: string) {
   }
 }
