@@ -10,14 +10,14 @@
 
     <div class="collapse navbar-collapse" id="containerNavbar">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <a class="nav-link" routerLink="/">Home</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <a class="nav-link" routerLink="/dictionary">Dictionary</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/practice">Practice</a>
+          <a class="nav-link" routerLink="/dictionary/practice">Practice</a>
         </li>
       </ul>
     </div>
