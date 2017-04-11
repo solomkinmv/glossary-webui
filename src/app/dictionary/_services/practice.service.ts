@@ -5,6 +5,7 @@ import {Quiz} from "../_models/quiz";
 import {JwtUtil} from "../../_util/jwt.util";
 import {WritingTest} from "../_models/writing-test";
 import {RestUtils} from "../../_util/rest.util";
+import {PracticeResults} from "../_models/practice-results";
 
 @Injectable()
 export class PracticeService {
@@ -40,9 +41,10 @@ export class PracticeService {
   }
 
   public handleResults(answers: Map<number, boolean>): Observable<string> {
-    console.log(`PracticeService.handleResults(${answers})`);
+    let practiceResults = new PracticeResults(RestUtils.mapToObj(answers));
+    console.log(`PracticeService.handleResults(PracticeResults${JSON.stringify(practiceResults)})`);
 
     return RestUtils.processGenericResponse(
-      this.http.post(`/api/practices`, JwtUtil.getRequestOptions()));
+      this.http.post('/api/practices', practiceResults, JwtUtil.getRequestOptions()));
   }
 }

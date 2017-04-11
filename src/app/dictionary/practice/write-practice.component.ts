@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
+import {Location} from "@angular/common";
 import {WritingTest, WritingTestQuestion} from "../_models/writing-test";
 import {PracticeService} from "../_services/practice.service";
 
@@ -17,7 +18,8 @@ export class WritePracticeComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,
-              private practiceService: PracticeService) {
+              private practiceService: PracticeService,
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class WritePracticeComponent implements OnInit {
       this.nextWord();
     } else {
       this.finished = true;
+      this.handleResults();
     }
   }
 
@@ -56,5 +59,14 @@ export class WritePracticeComponent implements OnInit {
     if (this.currentQuestion == null) {
       console.log(this.writingTest);
     }
+  }
+
+  private handleResults(): void {
+    this.practiceService.handleResults(this.answers)
+      .subscribe();
+  }
+
+  private goBack(): void {
+    this.location.back();
   }
 }

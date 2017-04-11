@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
+import {Location} from "@angular/common";
 import {PracticeService} from "../_services/practice.service";
 import {Quiz, QuizQuestion} from "../_models/quiz";
 
@@ -18,7 +19,8 @@ export class QuizPracticeComponent implements OnInit {
   private finished: boolean = false;
 
   constructor(private route: ActivatedRoute,
-              private practiceService: PracticeService) {
+              private practiceService: PracticeService,
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -52,8 +54,18 @@ export class QuizPracticeComponent implements OnInit {
 
     if (this.currentIndex == this.quiz.questions.length) {
       this.finished = true;
+      this.handleResults();
       return;
     }
     this.highlightOnAnswer = new Map<string, string>();
+  }
+
+  private handleResults(): void {
+    this.practiceService.handleResults(this.answers)
+      .subscribe();
+  }
+
+  private goBack(): void {
+    this.location.back();
   }
 }

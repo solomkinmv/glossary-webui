@@ -21,8 +21,16 @@ export class RestUtils {
   public static serverError(err: any): Observable<any> {
     console.log('Server error:', err);
     if (err instanceof Response) {
-      return Observable.throw(err.json()[0].message || 'Server error');
+      return Observable.throw(err.json().message || err.json()[0].message || 'Server error');
     }
     return Observable.throw(err || 'Server error');
+  }
+
+  public static mapToObj(map: Map<number, boolean>): any {
+    let obj = Object.create(null);
+    map.forEach((value: boolean, key: number) => {
+      obj[key] = value;
+    });
+    return obj;
   }
 }
