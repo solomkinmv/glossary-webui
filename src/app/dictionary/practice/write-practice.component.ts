@@ -15,7 +15,7 @@ export class WritePracticeComponent implements OnInit {
   private answers = new Map<number, boolean>();
   private finished = false;
   private showCorrectAnswer = false;
-
+  private progress: number = 0;
 
   constructor(private route: ActivatedRoute,
               private practiceService: PracticeService,
@@ -33,8 +33,11 @@ export class WritePracticeComponent implements OnInit {
   }
 
   private answer() {
-    if (this.currentQuestion.answer.answerText === this.answerText) {
-      this.answers.set(this.currentQuestion.answer.wordId, false);
+    this.updateProgress();
+    let testAnswer = this.currentQuestion.answer.answerText === this.answerText;
+
+    if (testAnswer) {
+      this.answers.set(this.currentQuestion.answer.wordId, testAnswer);
       this.writingTest.questions.splice(this.currentIndex, 1);
     } else {
       this.answers.set(this.currentQuestion.answer.wordId, false);
@@ -43,12 +46,18 @@ export class WritePracticeComponent implements OnInit {
       return;
     }
 
+    this.updateProgress();
+
     if (this.writingTest.questions.length > 0) {
       this.nextWord();
     } else {
       this.finished = true;
       this.handleResults();
     }
+  }
+
+  private updateProgress() {
+    this.progress = (this.answers.size / (this.answers.size + this.writingTest.questions.length)) * 100;
   }
 
   private nextWord() {

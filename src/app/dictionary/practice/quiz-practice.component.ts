@@ -17,6 +17,7 @@ export class QuizPracticeComponent implements OnInit {
   private answers = new Map<number, boolean>();
   private alreadyAnswered: boolean = false;
   private finished: boolean = false;
+  private progress: number = 0;
 
   constructor(private route: ActivatedRoute,
               private practiceService: PracticeService,
@@ -49,6 +50,7 @@ export class QuizPracticeComponent implements OnInit {
 
   private nextQuestion() {
     this.currentIndex++;
+    this.progress = (this.answers.size / this.quiz.questions.length) * 100;
     this.currentQuestion = this.quiz.questions[this.currentIndex];
     this.alreadyAnswered = false;
 

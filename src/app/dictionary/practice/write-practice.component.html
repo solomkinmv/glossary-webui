@@ -1,4 +1,9 @@
 <h1>Training mode</h1>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" [style.width.%]="progress" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
 <div *ngIf="!finished">
   <div class="form-group col-sm-6">
     <h2>{{currentQuestion.questionText}}</h2>

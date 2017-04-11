@@ -1,5 +1,9 @@
 <h1>Quiz</h1>
 
+<div class="progress">
+  <div class="progress-bar" role="progressbar" [style.width.%]="progress" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
 <div *ngIf="currentQuestion">
   <div class="form-group col-sm-6">
     <h2>{{currentQuestion.questionText}}</h2>
