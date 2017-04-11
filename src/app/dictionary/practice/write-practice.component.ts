@@ -16,6 +16,8 @@ export class WritePracticeComponent implements OnInit {
   private finished = false;
   private showCorrectAnswer = false;
   private progress: number = 0;
+  private correctAnswer: boolean = false;
+  private audio = new Audio();
 
   constructor(private route: ActivatedRoute,
               private practiceService: PracticeService,
@@ -29,6 +31,7 @@ export class WritePracticeComponent implements OnInit {
       .subscribe((writingTest: WritingTest) => {
         this.writingTest = writingTest;
         this.currentQuestion = this.writingTest.questions[this.currentIndex];
+        this.initSound();
       });
   }
 
@@ -36,21 +39,22 @@ export class WritePracticeComponent implements OnInit {
     this.updateProgress();
     let testAnswer = this.currentQuestion.answer.answerText === this.answerText;
 
+    this.showCorrectAnswer = true;
+    this.playSound();
     if (testAnswer) {
+      this.correctAnswer = true;
       this.answers.set(this.currentQuestion.answer.wordId, testAnswer);
       this.writingTest.questions.splice(this.currentIndex, 1);
     } else {
+      this.correctAnswer = false;
       this.answers.set(this.currentQuestion.answer.wordId, false);
       this.currentIndex++;
-      this.showCorrectAnswer = true;
       return;
     }
 
     this.updateProgress();
 
-    if (this.writingTest.questions.length > 0) {
-      this.nextWord();
-    } else {
+    if (this.writingTest.questions.length == 0) {
       this.finished = true;
       this.handleResults();
     }
@@ -65,9 +69,18 @@ export class WritePracticeComponent implements OnInit {
     this.answerText = '';
     this.currentIndex %= this.writingTest.questions.length;
     this.currentQuestion = this.writingTest.questions[this.currentIndex];
-    if (this.currentQuestion == null) {
-      console.log(this.writingTest);
+    if (this.currentQuestion != null) {
+      this.initSound();
     }
+  }
+
+  private initSound(): void {
+    this.audio.src = this.currentQuestion.answer.pronunciation;
+    this.audio.load();
+  }
+
+  private playSound() {
+    this.audio.play();
   }
 
   private handleResults(): void {

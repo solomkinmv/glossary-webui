@@ -5,14 +5,15 @@
 </div>
 
 <div *ngIf="!finished">
-  <div class="form-group col-sm-6">
+  <div class="col-sm-6">
     <h2>{{currentQuestion.questionText}}</h2>
 
     <div *ngIf="showCorrectAnswer">
-      <p>Wrong answer!</p>
-      <p>Your answer: {{answerText}}</p>
-      <p>Correct: {{currentQuestion.answer.answerText}}</p>
-      <button class="btn" (click)="nextWord()">Next</button>
+      <h4 *ngIf="correctAnswer">Correct!</h4>
+      <h4 *ngIf="!correctAnswer">Wrong answer!</h4>
+      <h4>Your answer: {{answerText}}</h4>
+      <h4>Correct: {{currentQuestion.answer.answerText}}</h4>
+      <button class="btn btn-primary" (click)="nextWord()">Next</button>
     </div>
   </div>
 

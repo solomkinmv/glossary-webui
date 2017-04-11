@@ -4,5 +4,17 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "info"
+  },
+  "/sound": {
+    "target": "http://35.163.198.240:8081",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/images": {
+    "target": "http://35.163.198.240:8081",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }

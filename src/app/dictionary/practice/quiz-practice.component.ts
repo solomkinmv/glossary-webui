@@ -18,6 +18,7 @@ export class QuizPracticeComponent implements OnInit {
   private alreadyAnswered: boolean = false;
   private finished: boolean = false;
   private progress: number = 0;
+  private audio = new Audio();
 
   constructor(private route: ActivatedRoute,
               private practiceService: PracticeService,
@@ -31,6 +32,7 @@ export class QuizPracticeComponent implements OnInit {
       .subscribe((quiz: Quiz) => {
         this.quiz = quiz;
         this.currentQuestion = this.quiz.questions[this.currentIndex];
+        this.initSound();
       })
   }
 
@@ -59,12 +61,23 @@ export class QuizPracticeComponent implements OnInit {
       this.handleResults();
       return;
     }
+    this.initSound();
     this.highlightOnAnswer = new Map<string, string>();
   }
 
   private handleResults(): void {
     this.practiceService.handleResults(this.answers)
       .subscribe();
+  }
+
+  private initSound(): void {
+    this.audio.src = this.currentQuestion.answer.pronunciation;
+    this.audio.load();
+    this.playSound();
+  }
+
+  private playSound() {
+    this.audio.play();
   }
 
   private goBack(): void {
