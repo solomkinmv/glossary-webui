@@ -4,10 +4,12 @@ import {DictionaryComponent} from "./dictionary.component";
 import {WordSetComponent} from "./word-set.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {WritePracticeComponent} from "./write-practice.component";
+import {WritePracticeComponent} from "./practice/write-practice.component";
 import {PracticeService} from "./_services/practice.service";
 import {WordService} from "./_services/word.service";
 import {WordSetService} from "./_services/word-set.service";
+import {PracticeComponent} from "./practice/practice.component";
+import {QuizPracticeComponent} from "./practice/quiz-practice.component";
 
 @NgModule({
   imports: [
@@ -18,6 +20,8 @@ import {WordSetService} from "./_services/word-set.service";
   declarations: [
     DictionaryComponent,
     WordSetComponent,
+    PracticeComponent,
+    QuizPracticeComponent,
     WritePracticeComponent
   ],
   providers: [

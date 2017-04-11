@@ -1,0 +1,22 @@
+<h1>Training mode</h1>
+<div *ngIf="!finished">
+  <div class="form-group col-sm-6">
+    <h2>{{currentQuestion.questionText}}</h2>
+
+    <div *ngIf="showCorrectAnswer">
+      <p>Wrong answer!</p>
+      <p>Your answer: {{answerText}}</p>
+      <p>Correct: {{currentQuestion.answer.answerText}}</p>
+      <button class="btn" (click)="nextWord()">Next</button>
+    </div>
+  </div>
+
+  <div *ngIf="!showCorrectAnswer" class="form-group col-sm-6">
+    <input [(ngModel)]="answerText" (keyup.enter)="answer()" placeholder="Input answer" class="form-control"/>
+  </div>
+</div>
+
+<div *ngIf="finished">
+  <h2>Congratulations!<br>You have finished writing practice!</h2>
+  <!--todo: navigation back-->
+</div>

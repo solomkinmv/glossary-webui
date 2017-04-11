@@ -1,0 +1,21 @@
+<h1>Quiz</h1>
+
+<div *ngIf="currentQuestion">
+  <div class="form-group col-sm-6">
+    <h2>{{currentQuestion.questionText}}</h2>
+  </div>
+
+  <div class="list-group">
+    <a *ngFor="let alternative of currentQuestion.alternatives"
+       (click)="answer(alternative)"
+       [ngClass]="highlightOnAnswer.get(alternative)"
+       class="list-group-item list-group-item-action">{{alternative}}</a>
+  </div>
+
+  <button *ngIf="alreadyAnswered" class="btn btn-primary" (click)="nextQuestion()">Next</button>
+</div>
+
+<div *ngIf="finished">
+  <h2>Congratulations!<br>You have finished quiz!</h2>
+  <!--todo: navigation back-->
+</div>
