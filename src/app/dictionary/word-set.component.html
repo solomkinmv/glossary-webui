@@ -7,12 +7,13 @@
   <a routerLink="../../practice/{{set.id}}" class="btn btn-primary">Practice</a>
   <ul class="list-group">
     <li *ngFor="let word of set.words" class="list-group-item justify-content-between">
+      <div class="col-sm-3"><img src="{{word.image}}" class="img-thumbnail"></div>
       <div class="col-sm-3">{{word.text}}</div>
       <div class="col-sm-3">{{word.translation}}</div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <span class="badge badge-default badge-pill">{{word.stage}}</span>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-1">
         <button type="button" (click)="removeWord(word)" class="btn btn-danger pull-right ">
           <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
