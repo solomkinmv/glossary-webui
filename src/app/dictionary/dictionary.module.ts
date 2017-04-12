@@ -11,6 +11,8 @@ import {WordSetService} from "./_services/word-set.service";
 import {PracticeComponent} from "./practice/practice.component";
 import {QuizPracticeComponent} from "./practice/quiz-practice.component";
 import {AddWordComponent} from "./add-word.component";
+import {ModalComponent} from "./modal/modal.component";
+import {ImageService} from "./_services/image.service";
 
 @NgModule({
   imports: [
@@ -24,12 +26,14 @@ import {AddWordComponent} from "./add-word.component";
     PracticeComponent,
     QuizPracticeComponent,
     WritePracticeComponent,
-    AddWordComponent
+    AddWordComponent,
+    ModalComponent
   ],
   providers: [
     WordSetService,
     WordService,
-    PracticeService
+    PracticeService,
+    ImageService
   ]
 })
 export class DictionaryModule {
