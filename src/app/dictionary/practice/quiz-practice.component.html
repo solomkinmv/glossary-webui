@@ -5,14 +5,14 @@
 </div>
 
 <div *ngIf="currentQuestion">
-  <div class="form-group col-sm-6">
+  <div class="form-group">
+    <img src="{{currentQuestion.answer.image}}" class="img-thumbnail mx-auto d-block">
     <h2>
       <a class="btn" role="button" aria-pressed="true" (click)="playSound()">
         <i class="btn fa fa-volume-up" aria-hidden="true"></i>
       </a>
       {{currentQuestion.questionText}}
     </h2>
-
   </div>
 
   <div class="list-group">

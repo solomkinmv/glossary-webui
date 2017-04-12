@@ -9,7 +9,7 @@ import {PracticeService} from "../_services/practice.service";
 })
 export class WritePracticeComponent implements OnInit {
   private writingTest: WritingTest;
-  private currentQuestion: WritingTestQuestion = new WritingTestQuestion(null, null);
+  private currentQuestion: WritingTestQuestion;
   private currentIndex = 0;
   private answerText: string;
   private answers = new Map<number, boolean>();

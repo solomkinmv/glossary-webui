@@ -4,8 +4,10 @@
   <div class="progress-bar" role="progressbar" [style.width.%]="progress" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
-<div *ngIf="!finished">
-  <div class="col-sm-6">
+<div *ngIf="currentQuestion">
+  <div class="form-group">
+    <img src="{{currentQuestion.answer.image}}" class="img-thumbnail mx-auto d-block">
+
     <h2>{{currentQuestion.questionText}}</h2>
 
     <div *ngIf="showCorrectAnswer">
