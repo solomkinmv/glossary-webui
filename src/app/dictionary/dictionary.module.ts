@@ -10,6 +10,7 @@ import {WordService} from "./_services/word.service";
 import {WordSetService} from "./_services/word-set.service";
 import {PracticeComponent} from "./practice/practice.component";
 import {QuizPracticeComponent} from "./practice/quiz-practice.component";
+import {AddWordComponent} from "./add-word.component";
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {QuizPracticeComponent} from "./practice/quiz-practice.component";
     WordSetComponent,
     PracticeComponent,
     QuizPracticeComponent,
-    WritePracticeComponent
+    WritePracticeComponent,
+    AddWordComponent
   ],
   providers: [
     WordSetService,

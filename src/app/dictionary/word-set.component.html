@@ -2,34 +2,7 @@
   <h2>{{set.name}}</h2>
   <p>{{set.description}}</p>
 
-  <div class="form-group">
-    <input type="text" (keyup)="search()"
-           (keyup.escape)="initSearch()"
-           class="form-control" placeholder="word"
-           [(ngModel)]="newWord.text">
-
-    <!--suggested words-->
-    <div class="list-group">
-      <a *ngFor="let record of searchRecords | async;"
-         (click)="chooseWord(record)" class="list-group-item list-group-item-action flex-column align-items-start">
-        {{record.text}} - {{record.translations.join(", ")}}
-      </a>
-      <a *ngIf="newWord.text" class="list-group-item list-group-item-action flex-column align-items-start">
-        <input type="text" (keyup.enter)="chooseTranslation(newWord.translation)"
-               (keyup.escape)="initSearch()" placeholder="translation"
-               class="form-control" [(ngModel)]="newWord.translation">
-      </a>
-    </div>
-
-    <!--suggested translations-->
-    <div class="list-group">
-      <a *ngFor="let translation of alternativeTranslations;"
-         (click)="chooseTranslation(translation)"
-         class="list-group-item list-group-item-action flex-column align-items-start">
-        {{translation}}
-      </a>
-    </div>
-  </div>
+  <add-word [set]="set"></add-word>
 
   <a routerLink="../../practice/{{set.id}}" class="btn btn-primary">Practice</a>
   <ul class="list-group">
