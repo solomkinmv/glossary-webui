@@ -19,6 +19,7 @@ export class AddWordComponent {
   private searchRecords: Observable<SearchRecord[]>;
   private searchTerms = new Subject<string>();
   private newWordImages: Observable<string[]>;
+  private highlightedImages = new Set<string>();
   @Input() set: WordSet;
   @ViewChild(ModalComponent)
   public readonly modal: ModalComponent;
@@ -58,13 +59,10 @@ export class AddWordComponent {
     if (record.translations.length == 1) {
       this.newWord.text = record.text;
       this.newWord.translation = record.translations[0];
-      // let word = new Word(record.text, record.translations[0], null);
-      // this.addWord(word);
       this.showImages();
       return;
     }
 
-    // this.newWord = new Word(record.text, null, null);
     this.newWord.text = record.text;
     this.alternativeTranslations = record.translations;
     this.searchRecords = Observable.empty();
@@ -72,20 +70,18 @@ export class AddWordComponent {
 
   private chooseTranslation(translation: string): void {
     this.newWord.translation = translation;
-    // this.addWord(this.newWord);
     this.showImages();
   }
 
   private showImages() {
     this.newWordImages = this.imageService.getImages(this.newWord.text);
-    // this.newWordImages.subscribe();
     this.modal.show();
   }
 
   private choosePicture(picture: string) {
     this.newWord.image = picture;
-    this.addWord();
-    this.modal.hide();
+    this.highlightedImages.clear();
+    this.highlightedImages.add(picture);
   }
 
   private addWord(): void {
@@ -97,7 +93,9 @@ export class AddWordComponent {
         },
         err => this.alertService.error(err)
       );
+
     this.initSearch();
+    this.modal.hide();
   }
 
   private initNewWord(): void {
@@ -108,5 +106,18 @@ export class AddWordComponent {
     this.initNewWord();
     this.initSearchRecords();
     this.alternativeTranslations = null;
+  }
+
+  private fileChange(files: FileList) {
+    let file = files.item(0);
+    console.log(file);
+
+    this.imageService.uploadImage(file)
+      .subscribe((location: string) => this.newWord.image = location);
+  }
+
+  private addWordWithoutImage() {
+    this.newWord.image = null;
+    this.addWord();
   }
 }

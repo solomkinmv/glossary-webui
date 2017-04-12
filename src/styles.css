@@ -5,3 +5,7 @@ a {
 .help-block {
   font-size: 12px;
 }
+
+.highlightedImage {
+  background-color: dodgerblue;
+}

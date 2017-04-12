@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
+import {Http, Response, URLSearchParams} from "@angular/http";
 import {JwtUtil} from "../../_util/jwt.util";
 import {Observable} from "rxjs/Observable";
 
@@ -17,5 +17,14 @@ export class ImageService {
 
     return this.http.get(`/api/images`, options)
       .map(response => response.json().images as string[]);
+  }
+
+  public uploadImage(file: File): Observable<string> {
+    let formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this.http.post('/api/images', formData, JwtUtil.getRequestOptions())
+      .do((response: Response) => console.log(response))
+      .map((response: Response) => response.headers.get('Location'));
   }
 }
