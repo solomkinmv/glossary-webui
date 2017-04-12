@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewChild} from "@angular/core";
 import {Observable, Subject} from "rxjs";
 import {SearchRecord} from "./_models/search-record";
 import {Word} from "./_models/word";
@@ -6,6 +6,8 @@ import {WordService} from "./_services/word.service";
 import {AlertService} from "../_services/alert.service";
 import {WordSetService} from "./_services/word-set.service";
 import {WordSet} from "./_models/word-set";
+import {ModalComponent} from "./modal/modal.component";
+import {ImageService} from "./_services/image.service";
 
 @Component({
   selector: 'add-word',
@@ -16,11 +18,15 @@ export class AddWordComponent {
   private alternativeTranslations: string[];
   private searchRecords: Observable<SearchRecord[]>;
   private searchTerms = new Subject<string>();
-  @Input() private set: WordSet;
+  private newWordImages: Observable<string[]>;
+  @Input() set: WordSet;
+  @ViewChild(ModalComponent)
+  public readonly modal: ModalComponent;
 
   constructor(private wordSetService: WordSetService,
               private wordService: WordService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private imageService: ImageService) {
     // this.initNewWord();
     this.initSearch();
   }
@@ -50,23 +56,40 @@ export class AddWordComponent {
   private chooseWord(record: SearchRecord): void {
     console.log("Choosing word: " + JSON.stringify(record));
     if (record.translations.length == 1) {
-      let word = new Word(record.text, record.translations[0], null);
-      this.addWord(word);
+      this.newWord.text = record.text;
+      this.newWord.translation = record.translations[0];
+      // let word = new Word(record.text, record.translations[0], null);
+      // this.addWord(word);
+      this.showImages();
       return;
     }
 
-    this.newWord = new Word(record.text, null, null);
+    // this.newWord = new Word(record.text, null, null);
+    this.newWord.text = record.text;
     this.alternativeTranslations = record.translations;
     this.searchRecords = Observable.empty();
   }
 
   private chooseTranslation(translation: string): void {
     this.newWord.translation = translation;
-    this.addWord(this.newWord);
+    // this.addWord(this.newWord);
+    this.showImages();
   }
 
-  private addWord(word: Word): void {
-    this.wordSetService.addWord(this.set.id, word)
+  private showImages() {
+    this.newWordImages = this.imageService.getImages(this.newWord.text);
+    // this.newWordImages.subscribe();
+    this.modal.show();
+  }
+
+  private choosePicture(picture: string) {
+    this.newWord.image = picture;
+    this.addWord();
+    this.modal.hide();
+  }
+
+  private addWord(): void {
+    this.wordSetService.addWord(this.set.id, this.newWord)
       .subscribe(
         (addedWord: Word) => {
           this.alertService.success("Added new record");
