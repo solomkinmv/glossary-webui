@@ -1,0 +1,29 @@
+<h1>Cards mode</h1>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" [style.width.%]="progress" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<div *ngIf="currentQuestion">
+  <div class="form-group">
+
+    <h2>{{currentQuestion.questionText}}</h2>
+
+    <div *ngIf="showCorrectAnswer">
+      <img src="{{currentQuestion.answer.image}}" class="img-thumbnail mx-auto d-block">
+      <h4>{{currentQuestion.answer.answerText}}</h4>
+
+      <button class="btn btn-success" (click)="markAsCorrect()">Correct</button>
+      <button class="btn btn-danger" (click)="markAsWrong()">Correct</button>
+    </div>
+  </div>
+
+  <div *ngIf="!showCorrectAnswer" class="form-group col-sm-6">
+    <button class="btn btn-primary" (click)="check()">Check</button>
+  </div>
+</div>
+
+<div *ngIf="finished">
+  <h2>Congratulations!<br>You have finished writing practice!</h2>
+  <button class="btn btn-primary" (click)="goBack()">Go back</button>
+</div>

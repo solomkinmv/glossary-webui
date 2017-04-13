@@ -6,6 +6,7 @@ import {WritePracticeComponent} from "./practice/write-practice.component";
 import {PracticeComponent} from "./practice/practice.component";
 import {QuizPracticeComponent} from "./practice/quiz-practice.component";
 import {ListeningPracticeComponent} from "./practice/listening-practice.component";
+import {CardsPracticeComponent} from "./practice/cards-practice.component";
 
 const routes: Routes = [
   {path: '', component: DictionaryComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'practice/:id/quiz', component: QuizPracticeComponent},
   {path: 'practice/:id/writing', component: WritePracticeComponent},
   {path: 'practice/:id/listening', component: ListeningPracticeComponent},
+  {path: 'practice/:id/cards', component: CardsPracticeComponent},
 ];
 
 @NgModule({
