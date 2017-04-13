@@ -14,6 +14,7 @@ import {AddWordComponent} from "./add-word.component";
 import {ModalComponent} from "./modal/modal.component";
 import {ImageService} from "./_services/image.service";
 import {EditWordSetComponent} from "./edit-word-set.component";
+import {ListeningPracticeComponent} from "./practice/listening-practice.component";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {EditWordSetComponent} from "./edit-word-set.component";
     WritePracticeComponent,
     AddWordComponent,
     ModalComponent,
-    EditWordSetComponent
+    EditWordSetComponent,
+    ListeningPracticeComponent
   ],
   providers: [
     WordSetService,

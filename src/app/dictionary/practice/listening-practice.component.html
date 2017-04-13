@@ -1,4 +1,4 @@
-<h1>Training mode</h1>
+<h1>Listening</h1>
 
 <div class="progress">
   <div class="progress-bar" role="progressbar" [style.width.%]="progress" aria-valuemin="0" aria-valuemax="100"></div>
@@ -6,9 +6,10 @@
 
 <div *ngIf="currentQuestion">
   <div class="form-group">
+    <a class="btn" role="button" aria-pressed="true" (click)="playSound()">
+      <i class="btn fa fa-volume-up" aria-hidden="true"></i>
+    </a>
     <img src="{{currentQuestion.answer.image}}" class="img-thumbnail mx-auto d-block">
-
-    <h2>{{currentQuestion.questionText}}</h2>
 
     <div *ngIf="showCorrectAnswer">
       <h4 *ngIf="correctAnswer">Correct!</h4>

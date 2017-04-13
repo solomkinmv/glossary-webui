@@ -1,13 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
-import {Location} from "@angular/common";
 import {WritingTest, WritingTestQuestion} from "../_models/writing-test";
 import {PracticeService} from "../_services/practice.service";
+import {Location} from "@angular/common";
 
 @Component({
-  templateUrl: 'write-practice.component.html'
+  templateUrl: 'listening-practice.component.html'
 })
-export class WritePracticeComponent implements OnInit {
+export class ListeningPracticeComponent implements OnInit {
   private writingTest: WritingTest;
   private currentQuestion: WritingTestQuestion;
   private currentIndex = 0;
@@ -64,13 +64,13 @@ export class WritePracticeComponent implements OnInit {
 
   private nextWord() {
     this.showCorrectAnswer = false;
+
     this.answerText = '';
     this.currentIndex %= this.writingTest.questions.length;
     this.currentQuestion = this.writingTest.questions[this.currentIndex];
     if (this.currentQuestion != null) {
       this.initSound();
     }
-
 
     if (this.writingTest.questions.length == 0) {
       this.finished = true;
@@ -81,6 +81,7 @@ export class WritePracticeComponent implements OnInit {
   private initSound(): void {
     this.audio.src = this.currentQuestion.answer.pronunciation;
     this.audio.load();
+    this.playSound();
   }
 
   private playSound() {

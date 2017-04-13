@@ -5,6 +5,7 @@ import {WordSetComponent} from "./word-set.component";
 import {WritePracticeComponent} from "./practice/write-practice.component";
 import {PracticeComponent} from "./practice/practice.component";
 import {QuizPracticeComponent} from "./practice/quiz-practice.component";
+import {ListeningPracticeComponent} from "./practice/listening-practice.component";
 
 const routes: Routes = [
   {path: '', component: DictionaryComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'practice/:id', component: PracticeComponent},
   {path: 'practice/:id/quiz', component: QuizPracticeComponent},
   {path: 'practice/:id/writing', component: WritePracticeComponent},
+  {path: 'practice/:id/listening', component: ListeningPracticeComponent},
 ];
 
 @NgModule({
