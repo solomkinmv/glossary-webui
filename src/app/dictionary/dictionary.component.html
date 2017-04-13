@@ -9,7 +9,11 @@
 <div class="card-columns">
   <div *ngFor="let set of sets | async" class="card">
     <div class="card-block">
+      <h6 class="card-subtitle text-muted pull-right">
+        {{set.words.length}} words
+      </h6>
       <h4 class="card-title">{{set.name}}</h4>
+
       <p class="card-text">{{set.description}}</p>
     </div>
     <div class="card-footer">
