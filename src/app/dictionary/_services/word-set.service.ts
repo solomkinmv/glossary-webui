@@ -23,10 +23,16 @@ export class WordSetService {
     console.log(`WordSetService.getAll(${refresh})`);
     if (refresh || !this.wordSetsRequest) {
       this.wordSetsRequest = this.http.get("/api/sets", JwtUtil.getRequestOptions())
-        .map((response: Response) => response.json()
-          ._embedded
-          .wordSetResourceList
-          .map(value => value.set) as WordSet[]);
+        .map((response: Response) => {
+          let json = response.json();
+          if (!json._embedded) {
+            return [];
+          }
+          return json
+            ._embedded
+            .wordSetResourceList
+            .map(value => value.set) as WordSet[]
+        });
 
       this.wordSetsRequest.subscribe(
         result => this.wordSetsSubject.next(result),

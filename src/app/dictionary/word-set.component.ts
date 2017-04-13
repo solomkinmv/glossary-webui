@@ -3,7 +3,6 @@ import {ActivatedRoute, Params} from "@angular/router";
 
 import {WordSet} from "./_models/word-set";
 import {WordSetService} from "./_services/word-set.service";
-import {WordService} from "./_services/word.service";
 import {Word} from "./_models/word";
 import {AlertService} from "../_services/alert.service";
 
@@ -15,7 +14,6 @@ export class WordSetComponent implements OnInit {
 
   constructor(private wordSetService: WordSetService,
               private route: ActivatedRoute,
-              private wordService: WordService,
               private alertService: AlertService) {
   }
 

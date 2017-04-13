@@ -2,12 +2,13 @@ import {Router} from "@angular/router";
 import {AlertService} from "../_services/alert.service";
 import {UserService} from "../_services/user.service";
 import {Component} from "@angular/core";
+import {RegisterForm} from "./register-form";
 
 @Component({
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
-  model: any = {};
+  private model: RegisterForm = new RegisterForm();
   loading = false;
 
   constructor(private router: Router,
@@ -16,6 +17,7 @@ export class RegisterComponent {
   }
 
   register() {
+    console.log(this.model);
     this.loading = true;
     this.userService.create(this.model)
       .subscribe(
