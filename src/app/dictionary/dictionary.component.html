@@ -1,12 +1,10 @@
 <h2>Word Sets</h2>
 
-<div *ngIf="!addingWord">
+<div *ngIf="!set">
   <button class="btn btn-primary" (click)="startAddingWordSet()">Add Word Set</button>
 </div>
 
-<div *ngIf="addingWord">
-  <add-word-set (notify)="onAddWordSet($event)"></add-word-set>
-</div>
+<add-word-set [wordSet]="set" (notify)="onNotify($event)"></add-word-set>
 
 <div class="card-columns">
   <div *ngFor="let set of sets | async" class="card">
@@ -21,6 +19,10 @@
       </div>
 
       <div class="btn-group btn-group-sm pull-right" role="group">
+
+        <button type="button" class="btn btn-link" (click)="editWordSet(set)">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
         <button type="button" class="btn btn-link" (click)="deleteWordSet(set)">
           <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>

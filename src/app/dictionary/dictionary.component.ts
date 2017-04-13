@@ -9,7 +9,7 @@ import {AlertService} from "../_services/alert.service";
 })
 export class DictionaryComponent implements OnInit {
   private sets: Observable<WordSet[]>;
-  private addingWord: boolean = false;
+  private set: WordSet;
 
   constructor(private wordSetService: WordSetService,
               private alertService: AlertService) {
@@ -20,12 +20,12 @@ export class DictionaryComponent implements OnInit {
     this.sets = this.wordSetService.getAll();
   }
 
-  private onAddWordSet(wordSet: WordSet) {
-    this.addingWord = false;
+  private startAddingWordSet(): void {
+    this.set = new WordSet();
   }
 
-  private startAddingWordSet(): void {
-    this.addingWord = true;
+  private editWordSet(wordSet: WordSet): void {
+    this.set = wordSet;
   }
 
   private deleteWordSet(wordSet: WordSet): void {
@@ -34,5 +34,11 @@ export class DictionaryComponent implements OnInit {
           this.alertService.success("Removed Word Set");
         },
         err => this.alertService.error(err));
+  }
+
+  private onNotify(wordSet: WordSet) {
+    console.log("on notify");
+    console.log(wordSet);
+    this.set = null;
   }
 }
