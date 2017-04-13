@@ -14,7 +14,7 @@
       <h4>{{currentQuestion.answer.answerText}}</h4>
 
       <button class="btn btn-success" (click)="markAsCorrect()">Correct</button>
-      <button class="btn btn-danger" (click)="markAsWrong()">Correct</button>
+      <button class="btn btn-danger" (click)="markAsWrong()">Incorrect</button>
     </div>
   </div>
 
@@ -24,6 +24,7 @@
 </div>
 
 <div *ngIf="finished">
-  <h2>Congratulations!<br>You have finished writing practice!</h2>
+  <practice-summary [summary]="summary()"></practice-summary>
+
   <button class="btn btn-primary" (click)="goBack()">Go back</button>
 </div>

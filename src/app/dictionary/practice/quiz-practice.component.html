@@ -26,6 +26,7 @@
 </div>
 
 <div *ngIf="finished">
-  <h2>Congratulations!<br>You have finished quiz!</h2>
+  <practice-summary [summary]="summary()"></practice-summary>
+
   <button class="btn btn-primary" (click)="goBack()">Go back</button>
 </div>

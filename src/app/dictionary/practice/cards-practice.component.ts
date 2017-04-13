@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {Location} from "@angular/common";
 import {WritingTest, WritingTestQuestion} from "../_models/writing-test";
 import {PracticeService} from "../_services/practice.service";
+import {Summary} from "../_models/summary";
 
 @Component({
   templateUrl: 'cards-practice.component.html'
@@ -85,5 +86,22 @@ export class CardsPracticeComponent implements OnInit {
 
   private goBack(): void {
     this.location.back();
+  }
+
+  private summary(): Summary {
+    let correct: string[] = [];
+    let incorrect: string[] = [];
+
+    for (let question of this.writingTest.questions) {
+      let isCorrect = this.answers.get(question.answer.wordId);
+      let text = question.questionText;
+      if (isCorrect) {
+        correct.push(text);
+      } else {
+        incorrect.push(text)
+      }
+    }
+
+    return new Summary(correct, incorrect);
   }
 }

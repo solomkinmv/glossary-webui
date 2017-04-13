@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {WritingTest, WritingTestQuestion} from "../_models/writing-test";
 import {PracticeService} from "../_services/practice.service";
 import {Location} from "@angular/common";
+import {Summary} from "../_models/summary";
 
 @Component({
   templateUrl: 'listening-practice.component.html'
@@ -18,6 +19,7 @@ export class ListeningPracticeComponent implements OnInit {
   private progress: number = 0;
   private correctAnswer: boolean = false;
   private audio = new Audio();
+  private summary: Summary = new Summary([], []);
 
   constructor(private route: ActivatedRoute,
               private practiceService: PracticeService,
@@ -37,25 +39,31 @@ export class ListeningPracticeComponent implements OnInit {
 
   private answer() {
     this.updateProgress();
-    let testAnswer = this.currentQuestion.answer.answerText === this.answerText;
+    this.correctAnswer = this.currentQuestion.answer.answerText === this.answerText;
+    if (!this.answers.has(this.currentQuestion.answer.wordId)) {
+      this.answers.set(this.currentQuestion.answer.wordId, this.correctAnswer);
+    }
 
     this.showCorrectAnswer = true;
     this.playSound();
-    if (testAnswer) {
-      this.correctAnswer = true;
-      if (!this.answers.has(this.currentQuestion.answer.wordId)) {
-        this.answers.set(this.currentQuestion.answer.wordId, testAnswer);
-      }
 
+    if (this.correctAnswer) {
       this.writingTest.questions.splice(this.currentIndex, 1);
+
+      this.updateSummary();
     } else {
-      this.correctAnswer = false;
-      this.answers.set(this.currentQuestion.answer.wordId, false);
       this.currentIndex++;
-      return;
     }
 
     this.updateProgress();
+  }
+
+  private updateSummary() {
+    if (this.answers.get(this.currentQuestion.answer.wordId)) {
+      this.summary.correct.push(this.currentQuestion.questionText);
+    } else {
+      this.summary.incorrect.push(this.currentQuestion.questionText);
+    }
   }
 
   private updateProgress() {
