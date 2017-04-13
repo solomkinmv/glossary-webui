@@ -1,0 +1,10 @@
+<div>
+  <label>name: </label>
+  <input [(ngModel)]="newWordSet.name" placeholder="name"/>
+
+  <label>description: </label>
+  <input [(ngModel)]="newWordSet.description" placeholder="name"/>
+</div>
+
+<button class="btn btn-secondary" (click)="stopAddingWordSet()">Cancel</button>
+<button class="btn btn-primary" (click)="addWordSet()">Add</button>

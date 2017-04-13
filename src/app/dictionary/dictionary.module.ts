@@ -13,6 +13,7 @@ import {QuizPracticeComponent} from "./practice/quiz-practice.component";
 import {AddWordComponent} from "./add-word.component";
 import {ModalComponent} from "./modal/modal.component";
 import {ImageService} from "./_services/image.service";
+import {AddWordSetComponent} from "./add-word-set.component";
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {ImageService} from "./_services/image.service";
     QuizPracticeComponent,
     WritePracticeComponent,
     AddWordComponent,
-    ModalComponent
+    ModalComponent,
+    AddWordSetComponent
   ],
   providers: [
     WordSetService,
