@@ -27,5 +27,12 @@
 <div *ngIf="finished">
   <practice-summary [summary]="summary"></practice-summary>
 
-  <button class="btn btn-primary" (click)="goBack()">Go back</button>
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6 text-center mx-auto">
+      <div class="btn-group btn-group-justified" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Go to trainings</button>
+        <button type="button" class="btn btn-secondary" routerLink="/dictionary/set/{{setId}}">Go to set</button>
+      </div>
+    </div>
+  </div>
 </div>

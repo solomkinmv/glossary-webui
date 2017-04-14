@@ -9,6 +9,7 @@ import {Summary} from "../_models/summary";
   templateUrl: 'quiz-practice.component.html'
 })
 export class QuizPracticeComponent implements OnInit {
+  private setId: number;
   private quiz: Quiz;
   private currentIndex = 0;
   private currentQuestion: QuizQuestion;
@@ -29,7 +30,10 @@ export class QuizPracticeComponent implements OnInit {
   ngOnInit(): void {
     console.log("QuizPracticeComponent init");
     this.route.params
-      .switchMap((params: Params) => this.practiceService.getQuiz(+params['id']))
+      .switchMap((params: Params) => {
+        this.setId = +params['id'];
+        return this.practiceService.getQuiz(this.setId);
+      })
       .subscribe((quiz: Quiz) => {
         this.quiz = quiz;
         this.currentQuestion = this.quiz.questions[this.currentIndex];

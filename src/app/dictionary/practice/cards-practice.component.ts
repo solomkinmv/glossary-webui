@@ -9,6 +9,7 @@ import {Summary} from "../_models/summary";
   templateUrl: 'cards-practice.component.html'
 })
 export class CardsPracticeComponent implements OnInit {
+  private setId: number;
   private writingTest: WritingTest;
   private currentQuestion: WritingTestQuestion;
   private currentIndex = 0;
@@ -26,7 +27,10 @@ export class CardsPracticeComponent implements OnInit {
   ngOnInit(): void {
     console.log("WritePracticeComponent init");
     this.route.params
-      .switchMap((params: Params) => this.practiceService.getWritingTest(+params['id']))
+      .switchMap((params: Params) => {
+        this.setId = +params['id'];
+        return this.practiceService.getWritingTest(this.setId);
+      })
       .subscribe((writingTest: WritingTest) => {
         this.writingTest = writingTest;
         this.currentQuestion = this.writingTest.questions[this.currentIndex];
