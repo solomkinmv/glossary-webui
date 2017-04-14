@@ -6,9 +6,9 @@ import {PracticeService} from "../_services/practice.service";
 import {Summary} from "../_models/summary";
 
 @Component({
-  templateUrl: 'cards-practice.component.html'
+  templateUrl: 'self-check-practice.component.html'
 })
-export class CardsPracticeComponent implements OnInit {
+export class SelfCheckPracticeComponent implements OnInit {
   private setId: number;
   private writingTest: WritingTest;
   private currentQuestion: WritingTestQuestion;
