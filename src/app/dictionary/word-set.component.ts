@@ -11,6 +11,7 @@ import {AlertService} from "../_services/alert.service";
 })
 export class WordSetComponent implements OnInit {
   private set: WordSet;
+  private soundMap: Map<Word, any> = new Map<Word, any>();
 
   constructor(private wordSetService: WordSetService,
               private route: ActivatedRoute,
@@ -36,5 +37,18 @@ export class WordSetComponent implements OnInit {
         },
         err => this.alertService.error(err)
       );
+  }
+
+  private playSound(word: Word): void {
+    if (this.soundMap.has(word)) {
+      this.soundMap.get(word).play();
+      return;
+    }
+
+    let audio = new Audio();
+    audio.src = word.sound;
+    audio.load();
+    audio.play();
+    this.soundMap.set(word, audio);
   }
 }
