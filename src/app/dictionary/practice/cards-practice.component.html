@@ -1,0 +1,52 @@
+<button type="button" class="btn btn-secondary" (click)="goBack()">Back</button>
+
+<div *ngIf="currentWord" class="row">
+  <div class="col-sm-6 col-lg-4 mx-auto">
+    <div class="flip-container" id="flipFrame">
+      <!-- Card Flip -->
+      <div class="card-flip" [class.hover]="flip">
+        <div class="flip">
+          <div class="front">
+            <!-- front content -->
+            <div class="card">
+              <img class="card-img-top hidden" src="{{currentWord.image}}" data-holder-rendered="true">
+              <div class="card-block">
+                <h4 class="card-title">
+                  <a class="btn" role="button" aria-pressed="true" (click)="playSound()">
+                    <i class="btn fa fa-volume-up" aria-hidden="true"></i>
+                  </a>
+                  {{currentWord.text}}</h4>
+              </div>
+              <div class="card-footer text-center">
+                <small class="text-muted">{{currentIndex + 1}} / {{set.words.length}}</small>
+              </div>
+            </div>
+          </div>
+          <div class="back">
+            <div class="card">
+              <img class="card-img-top" src="{{currentWord.image}}" data-holder-rendered="true">
+              <div class="card-block">
+                <h4 class="card-title text-center">{{currentWord.translation}}</h4>
+              </div>
+              <div class="card-footer text-center">
+                <small class="text-muted">{{currentIndex + 1}} / {{set.words.length}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Card Flip -->
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-offset-3 col-sm-6 text-center mx-auto">
+    <div class="btn-group btn-group-justified" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-secondary" (click)="previous()" [disabled]="currentIndex == 0">Previous
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="makeFlip()">Flip</button>
+      <button type="button" class="btn btn-secondary" (click)="next()" [disabled]="">Next</button>
+    </div>
+  </div>
+</div>

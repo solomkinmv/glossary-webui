@@ -17,6 +17,7 @@ import {EditWordSetComponent} from "./edit-word-set.component";
 import {ListeningPracticeComponent} from "./practice/listening-practice.component";
 import {SelfCheckPracticeComponent} from "./practice/self-check-practice.component";
 import {PracticeSummaryComponent} from "./practice/practice-summary.component";
+import {CardsPracticeComponent} from "./practice/cards-practice.component";
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {PracticeSummaryComponent} from "./practice/practice-summary.component";
     EditWordSetComponent,
     ListeningPracticeComponent,
     SelfCheckPracticeComponent,
-    PracticeSummaryComponent
+    PracticeSummaryComponent,
+    CardsPracticeComponent
   ],
   providers: [
     WordSetService,
