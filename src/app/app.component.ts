@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('AppComponent init');
-    this.loggedIn = this.authService.containsToken();
+    this.authService.loggedIn.subscribe((logged: boolean) => this.loggedIn = logged);
   }
 
   private logout(): void {

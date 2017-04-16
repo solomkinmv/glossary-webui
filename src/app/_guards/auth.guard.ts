@@ -2,13 +2,15 @@ import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs";
 import {UserService} from "../_services/user.service";
+import {AuthenticationService} from "../_services/authentication.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
   private me: Object;
 
   constructor(private router: Router,
-              private userService: UserService) {
+              private userService: UserService,
+              private authService: AuthenticationService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -18,7 +20,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     return this.checkLogin(url);
   }
 
-  canLoad(route: Route): Observable<boolean>|Promise<boolean>|boolean {
+  canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
     let url = `/${route.path}`;
 
     return this.checkLogin(url);
@@ -32,6 +34,7 @@ export class AuthGuard implements CanActivate, CanLoad {
         // not logged in so redirect to login page with the return url
         // todo: save return url
         this.router.navigate(['/login']);
+        this.authService.loggedIn.next(false);
         return false;
       });
   }
@@ -42,6 +45,7 @@ export class AuthGuard implements CanActivate, CanLoad {
         console.log("CheckLogin me:");
         console.log(data);
         if (data['username']) {
+          this.authService.loggedIn.next(true);
           return true;
         }
       });

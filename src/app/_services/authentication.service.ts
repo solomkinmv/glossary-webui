@@ -2,11 +2,15 @@ import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Router} from "@angular/router";
+import {Subject} from "rxjs/Subject";
 
 @Injectable()
 export class AuthenticationService {
+  public loggedIn = new Subject();
+
   constructor(private http: Http,
               private router: Router) {
+    this.loggedIn.next(false);
   }
 
   private tokenKey = 'tokenHolder';
@@ -21,6 +25,7 @@ export class AuthenticationService {
         const tokenHolder = response.json();
         if (tokenHolder && tokenHolder.token) {
           localStorage.setItem(this.tokenKey, JSON.stringify(tokenHolder));
+          this.loggedIn.next(true);
         }
 
         return response;
@@ -30,12 +35,7 @@ export class AuthenticationService {
   public logout(): void {
     // remove user from local storage to log user out
     localStorage.removeItem('tokenHolder');
-    this.router.navigate(['/']);
-  }
-
-  public containsToken(): boolean {
-    console.log('Checking token in local storage');
-    let item = localStorage.getItem('tokenHolder');
-    return item != null;
+    this.loggedIn.next(false);
+    this.router.navigate(['/login']);
   }
 }
