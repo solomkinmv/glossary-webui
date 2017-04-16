@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import {Headers, Http, RequestOptions, Response} from "@angular/http";
 
 @Injectable()
 export class AuthenticationService {
   constructor(private http: Http) { }
 
-  login(username: string, password: string) {
+  public login(username: string, password: string) {
     const body = JSON.stringify({username: username, password: password});
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({'headers': headers});
@@ -19,7 +19,7 @@ export class AuthenticationService {
       })
   }
 
-  logout() {
+  public logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('tokenHolder');
   }

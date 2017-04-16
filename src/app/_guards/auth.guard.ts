@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs";
 import {UserService} from "../_services/user.service";
 
@@ -25,6 +25,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   checkLogin(url: string): Promise<boolean> {
+    console.log("AuthGuard checking login");
     return this.isLoggedIn()
       .catch(e => {
         console.log("CheckLogin failed");

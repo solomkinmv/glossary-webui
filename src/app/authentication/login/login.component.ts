@@ -1,7 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AuthenticationService} from "../_services/authentication.service";
-import {AlertService} from "../_services/alert.service";
+import {AuthenticationService} from "../../_services/authentication.service";
+import {AlertService} from "../../_services/alert.service";
+
 @Component({
   templateUrl: './login.component.html'
 })

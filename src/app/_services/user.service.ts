@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
 import {JwtUtil} from "../_util/jwt.util";
-import {RegisterForm} from "../register/register-form";
+import {RegisterForm} from "../authentication/register/register-form";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
