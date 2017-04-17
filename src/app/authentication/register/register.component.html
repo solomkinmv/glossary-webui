@@ -1,32 +1,82 @@
 <div class="row">
-
-  <div class="col-6 offset-3">
+  <div class="col-8 offset-2">
     <h2>Register</h2>
-    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel"
-               required/>
-        <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
+    <form (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger': !firstName.valid && (!firstName.pristine || f.submitted) }">
+        <label class="col-2 col-form-label">First Name</label>
+        <div class="col-10">
+          <input type="text" class="form-control form-control-danger" name="firstName" [(ngModel)]="model.firstName"
+                 #firstName="ngModel"
+                 required/>
+          <small [hidden]="firstName.valid || (firstName.pristine && !f.submitted)"
+                 class="form-control-feedback">
+            First name is required.
+          </small>
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel"
-               required/>
-        <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
+
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger': !lastName.valid && (!lastName.pristine || f.submitted) }">
+        <label class="col-2 col-form-label">Last Name</label>
+        <div class="col-10">
+
+          <input type="text" class="form-control form-control-danger" name="lastName" [(ngModel)]="model.lastName"
+                 #lastName="ngModel"
+                 required/>
+          <small [hidden]="lastName.valid || (lastName.pristine && !f.submitted)"
+                 class="form-control-feedback">
+            Last name is required.
+          </small>
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel"
-               required/>
-        <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger': !username.valid && (!username.pristine || f.submitted) }">
+        <label class="col-2 col-form-label">Username</label>
+        <div class="col-10">
+
+          <input type="text" class="form-control form-control-danger" name="username" [(ngModel)]="model.username"
+                 #username="ngModel"
+                 required minlength="5" maxlength="20"/>
+          <small [hidden]="username.valid || (username.pristine && !f.submitted)"
+                 class="form-control-feedback">
+            Username is required (minimum 5 characters, maximum 20 characters).
+          </small>
+        </div>
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
-               required/>
-        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger': !password.valid && (!password.pristine || f.submitted) }">
+        <label class="col-2 col-form-label">Password</label>
+        <div class="col-10">
+
+          <input type="password" class="form-control form-control-danger" name="password" [(ngModel)]="model.password"
+                 #password="ngModel"
+                 required minlength="5" validateEqual=""/>
+          <small [hidden]="password.valid || (password.pristine && !f.submitted)"
+                 class="form-control-feedback">
+            Password is required (minimum 5 characters).
+          </small>
+        </div>
       </div>
+
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger': !confirmPassword.valid && (!confirmPassword.pristine || f.submitted) }">
+        <label class="col-2 col-form-label">Confirm password</label>
+        <div class="col-10">
+
+          <input type="password" class="form-control form-control-danger" name="confirmPassword"
+                 [(ngModel)]="model.confirmPassword"
+                 #confirmPassword="ngModel"
+                 required validateEqual="password"/>
+          <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)"
+                 class="form-control-feedback">
+            Password mismatch.
+          </small>
+        </div>
+      </div>
+
       <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">Register</button>
         <img *ngIf="loading"

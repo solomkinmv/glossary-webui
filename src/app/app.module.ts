@@ -12,6 +12,7 @@ import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
 import {AppRoutingModule} from "./app.routing";
 import {Router} from "@angular/router";
+import {EqualValidator} from "./_directives/equal-validator";
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {Router} from "@angular/router";
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    EqualValidator
   ],
   providers: [
     AlertService,
