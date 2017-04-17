@@ -11,11 +11,15 @@ export class RestUtils {
     return +location.split('/').pop();
   }
 
-  public static processGenericResponse(response: Observable<Response>): Observable<string> {
+  public static genericHandler(response: Observable<Response>): Observable<Response> {
     return response
       .do((response: Response) => console.log(response))
-      .map((response: Response) => response.statusText)
       .catch(RestUtils.serverError);
+  }
+
+  public static processGenericResponse(response: Observable<Response>): Observable<string> {
+    return RestUtils.genericHandler(response)
+      .map((response: Response) => response.statusText);
   }
 
   public static serverError(err: any): Observable<any> {
