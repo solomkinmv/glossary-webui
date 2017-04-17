@@ -13,6 +13,7 @@ import {UserService} from "./_services/user.service";
 import {AppRoutingModule} from "./app.routing";
 import {Router} from "@angular/router";
 import {EqualValidator} from "./_directives/equal-validator";
+import {ProfileComponent} from "./profile/profile.component";
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import {EqualValidator} from "./_directives/equal-validator";
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    ProfileComponent,
     EqualValidator
   ],
   providers: [

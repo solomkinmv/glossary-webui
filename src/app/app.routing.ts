@@ -4,11 +4,13 @@ import {AuthGuard} from "./_guards/auth.guard";
 import {LoginComponent} from "./authentication/login/login.component";
 import {RegisterComponent} from "./authentication/register/register.component";
 import {NgModule} from "@angular/core";
+import {ProfileComponent} from "./profile/profile.component";
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'dictionary', loadChildren: 'app/dictionary/dictionary.module#DictionaryModule', canLoad: [AuthGuard]},
+  {path: 'profile', pathMatch: 'full', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: '', pathMatch: 'full', component: HomeComponent, canActivate: [AuthGuard]},
 
   // otherwise redirect to home
