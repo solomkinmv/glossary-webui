@@ -1,9 +1,10 @@
 import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {PracticeService} from "../_services/practice.service";
 import {Quiz, QuizQuestion} from "../_models/quiz";
 import {Summary} from "../_models/summary";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   templateUrl: 'quiz-practice.component.html'
@@ -29,10 +30,11 @@ export class QuizPracticeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("QuizPracticeComponent init");
-    this.route.params
-      .switchMap((params: Params) => {
-        this.setId = +params['id'];
-        return this.practiceService.getQuiz(this.setId);
+    Observable.combineLatest(this.route.params, this.route.queryParams, (params, qparams) => ({params, qparams}))
+      .switchMap(ap => {
+        this.setId = +ap.params['id'];
+        let originQuestions = ap.qparams['originQuestions'];
+        return this.practiceService.getQuiz(this.setId, originQuestions);
       })
       .subscribe((quiz: Quiz) => {
         this.quiz = quiz;

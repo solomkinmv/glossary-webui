@@ -32,7 +32,7 @@ export class ListeningPracticeComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => {
         this.setId = +params['id'];
-        return this.practiceService.getWritingTest(this.setId);
+        return this.practiceService.getWritingTest(this.setId, false);
       })
       .subscribe((writingTest: WritingTest) => {
         this.writingTest = writingTest;

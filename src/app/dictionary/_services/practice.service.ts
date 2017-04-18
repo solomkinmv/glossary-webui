@@ -12,11 +12,14 @@ export class PracticeService {
   constructor(private http: Http) {
   }
 
-  public getQuiz(setId: number | string): Observable<Quiz> {
-    console.log(`PracticeService.getQuiz(${setId})`);
+  public getQuiz(setId: number | string, originQuestions: boolean = false): Observable<Quiz> {
+    console.log(`PracticeService.getQuiz(${setId}, ${originQuestions})`);
 
     let searchParams = new URLSearchParams();
-    searchParams.set("setId", setId.toString());
+    searchParams.set("originQuestions", originQuestions.toString());
+    if (setId) {
+      searchParams.set("setId", setId.toString());
+    }
     let options = JwtUtil.getRequestOptions();
     options.search = searchParams;
 
@@ -26,11 +29,14 @@ export class PracticeService {
       .catch(RestUtils.serverError);
   }
 
-  public getWritingTest(setId: number | string): Observable<WritingTest> {
-    console.log(`PracticeService.getWritingTest(${setId})`);
+  public getWritingTest(setId: number | string, originQuestions: boolean = true): Observable<WritingTest> {
+    console.log(`PracticeService.getWritingTest(${setId}, ${originQuestions})`);
 
     let searchParams = new URLSearchParams();
-    searchParams.set("setId", setId.toString());
+    searchParams.set("originQuestions", originQuestions.toString());
+    if (setId) {
+      searchParams.set("setId", setId.toString());
+    }
     let options = JwtUtil.getRequestOptions();
     options.search = searchParams;
 

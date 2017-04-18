@@ -15,52 +15,67 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-6">
+  <div class="card-deck col-12">
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Quiz</h3>
         <p class="card-text">Practice mode description.</p>
-        <a routerLink="quiz" class="btn btn-primary">Start</a>
+      </div>
+      <div class="card-footer">
+        <a routerLink="quiz" [queryParams]="{originQuestions: true}"
+           class="btn btn-secondary" role="button" aria-pressed="true">Word - Translation</a>
+        <a routerLink="quiz" [queryParams]="{originQuestions: false}"
+           class="btn btn-secondary" role="button" aria-pressed="true">Translation - Word</a>
       </div>
     </div>
-  </div>
 
-  <div class="col-sm-6">
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Writing test</h3>
         <p class="card-text">Practice mode description.</p>
-        <a routerLink="writing" class="btn btn-primary">Start</a>
+      </div>
+      <div class="card-footer">
+        <a routerLink="writing" [queryParams]="{originQuestions: true}"
+           class="btn btn-secondary" role="button" aria-pressed="true">Word - Translation</a>
+        <a routerLink="writing" [queryParams]="{originQuestions: false}"
+           class="btn btn-secondary" role="button" aria-pressed="true">Translation - Word</a>
       </div>
     </div>
   </div>
 
-  <div class="col-sm-6">
+  <div class="card-deck mt-4 col-12">
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Listening test</h3>
         <p class="card-text">Practice mode description.</p>
-        <a routerLink="listening" class="btn btn-primary">Start</a>
+      </div>
+      <div class="card-footer">
+        <a routerLink="listening" class="btn btn-secondary">Start</a>
       </div>
     </div>
-  </div>
 
-  <div class="col-sm-6">
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Self check</h3>
         <p class="card-text">Practice mode description.</p>
-        <a routerLink="check" class="btn btn-primary">Start</a>
+      </div>
+      <div class="card-footer">
+        <a routerLink="check" [queryParams]="{originQuestions: true}"
+           class="btn btn-secondary" role="button" aria-pressed="true">Word - Translation</a>
+        <a routerLink="check" [queryParams]="{originQuestions: false}"
+           class="btn btn-secondary" role="button" aria-pressed="true">Translation - Word</a>
       </div>
     </div>
   </div>
 
-  <div class="col-sm-6">
+  <div class="card-deck mt-4 col-6">
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Flashcards</h3>
         <p class="card-text">Practice mode description.</p>
-        <a routerLink="cards" class="btn btn-primary">Start</a>
+      </div>
+      <div class="card-footer">
+        <a routerLink="cards" class="btn btn-secondary">Start</a>
       </div>
     </div>
   </div>
