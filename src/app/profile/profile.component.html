@@ -15,16 +15,17 @@
       <h1 class="display-3">Hello, {{profile.name}}!</h1>
       <hr class="my-4">
       <p class="lead">Profile information:</p>
-      <table>
-        <tr>
-          <td>username:</td>
-          <td>{{profile.username}}</td>
-        </tr>
-        <tr>
-          <td>email:</td>
-          <td>{{profile.email}}</td>
-        </tr>
-      </table>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">{{profile.username}}</p>
+        </div>
+        <label class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">{{profile.email}}</p>
+        </div>
+      </div>
     </div>
   </div>
 
