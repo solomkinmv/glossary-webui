@@ -8,7 +8,7 @@
   <div class="form-group">
     <img src="{{currentQuestion.answer.image}}" class="img-thumbnail mx-auto d-block">
     <h2>
-      <a class="btn" role="button" aria-pressed="true" (click)="playSound()">
+      <a *ngIf="alreadyAnswered" class="btn" role="button" aria-pressed="true" (click)="playSound()">
         <i class="btn fa fa-volume-up" aria-hidden="true"></i>
       </a>
       {{currentQuestion.questionText}}
@@ -32,7 +32,8 @@
     <div class="col-sm-offset-3 col-sm-6 text-center mx-auto">
       <div class="btn-group btn-group-justified" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-secondary" (click)="goBack()">Go to trainings</button>
-        <button type="button" class="btn btn-secondary" routerLink="/dictionary/set/{{setId}}">Go to set</button>
+        <button *ngIf="setId" type="button" class="btn btn-secondary" routerLink="/dictionary/set/{{setId}}">Go to set
+        </button>
       </div>
     </div>
   </div>

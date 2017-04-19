@@ -48,6 +48,7 @@ export class QuizPracticeComponent implements OnInit {
       return;
     }
     this.alreadyAnswered = true;
+    this.playSound();
     let testAnswer = this.currentQuestion.answer;
     let correctAnswer = testAnswer.answerText === alternative;
     this.answers.set(testAnswer.wordId, correctAnswer);
@@ -80,7 +81,6 @@ export class QuizPracticeComponent implements OnInit {
   private initSound(): void {
     this.audio.src = this.currentQuestion.answer.pronunciation;
     this.audio.load();
-    this.playSound();
   }
 
   private playSound() {

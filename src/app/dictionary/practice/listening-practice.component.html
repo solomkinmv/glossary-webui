@@ -7,7 +7,7 @@
 <div *ngIf="currentQuestion">
   <div class="form-group">
     <a class="btn" role="button" aria-pressed="true" (click)="playSound()">
-      <i class="btn fa fa-volume-up" aria-hidden="true"></i>
+      <i class="fa fa-volume-up" aria-hidden="true"></i>
     </a>
     <img src="{{currentQuestion.answer.image}}" class="img-thumbnail mx-auto d-block">
 
@@ -21,7 +21,7 @@
   </div>
 
   <div *ngIf="!showCorrectAnswer" class="form-group col-sm-6">
-    <input [(ngModel)]="answerText" (keyup.enter)="answer()" placeholder="Input answer" class="form-control"/>
+    <input [(ngModel)]="answerText" (keyup.enter)="answer()" placeholder="Input what you hea" class="form-control"/>
   </div>
 </div>
 

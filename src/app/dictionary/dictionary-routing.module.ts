@@ -12,6 +12,12 @@ import {CardsPracticeComponent} from "./practice/cards-practice.component";
 const routes: Routes = [
   {path: '', component: DictionaryComponent},
   {path: 'set/:id', component: WordSetComponent},
+  {path: 'practice', component: PracticeComponent},
+  {path: 'practice/quiz', component: QuizPracticeComponent},
+  {path: 'practice/writing', component: WritePracticeComponent},
+  {path: 'practice/listening', component: ListeningPracticeComponent},
+  {path: 'practice/check', component: SelfCheckPracticeComponent},
+  {path: 'practice/cards', component: CardsPracticeComponent},
   {path: 'practice/:id', component: PracticeComponent},
   {path: 'practice/:id/quiz', component: QuizPracticeComponent},
   {path: 'practice/:id/writing', component: WritePracticeComponent},

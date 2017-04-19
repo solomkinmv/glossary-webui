@@ -1,13 +1,16 @@
-<div *ngIf="sets && currentSet" class="btn-group" role="group">
-  <button routerLink="/dictionary/set/{{currentSet.id}}" type="button" class="btn btn-secondary">List words</button>
+<div *ngIf="sets" class="btn-group" role="group">
+  <button *ngIf="currentSet" routerLink="/dictionary/set/{{currentSet.id}}" type="button" class="btn btn-secondary">List
+    words
+  </button>
   <div class="btn-group" role="group">
     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-      {{currentSet.name}}
+      {{setId ? currentSet.name : "All Words"}}
     </button>
     <div class="dropdown-menu">
+      <a *ngIf="setId" class="dropdown-item" routerLink="..">All Words</a>
       <a *ngFor="let set of sets" class="dropdown-item"
-         routerLink="../{{set.id}}">
+         routerLink="/dictionary/practice/{{set.id}}">
         {{set.name}}
       </a>
     </div>
