@@ -6,6 +6,7 @@ import {Profile} from "../profile/profile";
 import {RestUtils} from "../_util/rest.util";
 import {RegisterForm} from "../authentication/register/register-form";
 import {ProfileMeta} from "../profile/profile-meta";
+import {Statistic} from "../_models/statistic";
 
 @Injectable()
 export class UserService {
@@ -25,5 +26,10 @@ export class UserService {
 
   public update(profileMeta: ProfileMeta): Observable<string> {
     return RestUtils.processGenericResponse(this.http.post('/api/me', profileMeta, JwtUtil.getRequestOptions()));
+  }
+
+  public statistic(): Observable<Statistic> {
+    return RestUtils.genericHandler(this.http.get('/api/statistic', JwtUtil.getRequestOptions()))
+      .map((response: Response) => response.json().statistic as Statistic);
   }
 }

@@ -1,8 +1,27 @@
-<h1>Glossary Index Page</h1>
+<h1>Your stats</h1>
 
-<div *ngIf="!loggedIn">
-  <p><a [routerLink]="['/login']">Login</a></p>
+<div class="card-group">
+  <div class="card text-center">
+    <div class="card-block">
+      <h4 class="card-title">Total Words</h4>
+    </div>
+  </div>
+  <div class="card text-center">
+    <div class="card-block">
+      <h4 *ngIf="statistic" class="card-title">{{statistic.totalWords}}</h4>
+    </div>
+  </div>
 </div>
-<div *ngIf="loggedIn">
-  <p>You are so cool!</p>
+
+<div class="card-group">
+  <div class="card text-center">
+    <div class="card-block">
+      <h4 class="card-title">Learned Words</h4>
+    </div>
+  </div>
+  <div class="card text-center">
+    <div class="card-block">
+      <h4 *ngIf="statistic" class="card-title">{{statistic.learnedWords}}</h4>
+    </div>
+  </div>
 </div>
