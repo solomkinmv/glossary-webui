@@ -18,6 +18,8 @@ import {ListeningPracticeComponent} from "./practice/listening-practice.componen
 import {SelfCheckPracticeComponent} from "./practice/self-check-practice.component";
 import {PracticeSummaryComponent} from "./practice/practice-summary.component";
 import {CardsPracticeComponent} from "./practice/cards-practice.component";
+import {PronunciationComponent} from "./practice/pronuncition.component";
+import {SpeechRecognitionService} from "./_services/speech-recognition.service";
 
 @NgModule({
   imports: [
@@ -37,13 +39,15 @@ import {CardsPracticeComponent} from "./practice/cards-practice.component";
     ListeningPracticeComponent,
     SelfCheckPracticeComponent,
     PracticeSummaryComponent,
-    CardsPracticeComponent
+    CardsPracticeComponent,
+    PronunciationComponent
   ],
   providers: [
     WordSetService,
     WordService,
     PracticeService,
-    ImageService
+    ImageService,
+    SpeechRecognitionService
   ]
 })
 export class DictionaryModule {
