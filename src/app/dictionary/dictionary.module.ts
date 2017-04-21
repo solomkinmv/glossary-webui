@@ -15,7 +15,7 @@ import {ModalComponent} from "./modal/modal.component";
 import {ImageService} from "./_services/image.service";
 import {EditWordSetComponent} from "./edit-word-set.component";
 import {ListeningPracticeComponent} from "./practice/listening-practice.component";
-import {SelfCheckPracticeComponent} from "./practice/self-check-practice.component";
+import {RepetitionPracticeComponent} from "./practice/repetition-practice.component";
 import {PracticeSummaryComponent} from "./practice/practice-summary.component";
 import {CardsPracticeComponent} from "./practice/cards-practice.component";
 import {PronunciationComponent} from "./practice/pronuncition.component";
@@ -37,7 +37,7 @@ import {SpeechRecognitionService} from "./_services/speech-recognition.service";
     ModalComponent,
     EditWordSetComponent,
     ListeningPracticeComponent,
-    SelfCheckPracticeComponent,
+    RepetitionPracticeComponent,
     PracticeSummaryComponent,
     CardsPracticeComponent,
     PronunciationComponent

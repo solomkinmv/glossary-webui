@@ -1,24 +1,25 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {WritingTest, WritingTestQuestion} from "../_models/writing-test";
 import {PracticeService} from "../_services/practice.service";
 import {Summary} from "../_models/summary";
+import {Word} from "../_models/word";
 import {Observable} from "rxjs/Observable";
 
 @Component({
-  templateUrl: 'self-check-practice.component.html'
+  templateUrl: 'repetition-practice.component.html'
 })
-export class SelfCheckPracticeComponent implements OnInit {
+export class RepetitionPracticeComponent implements OnInit {
   private setId: number;
-  private writingTest: WritingTest;
-  private currentQuestion: WritingTestQuestion;
+  private currentWord: Word;
   private currentIndex = 0;
   private answers = new Map<number, boolean>();
   private finished = false;
   private showCorrectAnswer = false;
   private progress: number = 0;
   private audio = new Audio();
+  private words: Word[];
+  private originQuestions: any;
 
   constructor(private route: ActivatedRoute,
               private practiceService: PracticeService,
@@ -26,16 +27,16 @@ export class SelfCheckPracticeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("WritePracticeComponent init");
+    console.log("RepetitionPracticeComponent init");
     Observable.combineLatest(this.route.params, this.route.queryParams, (params, qparams) => ({params, qparams}))
       .switchMap(ap => {
         this.setId = +ap.params['id'];
-        let originQuestions = ap.qparams['originQuestions'];
-        return this.practiceService.getWritingTest(this.setId, originQuestions);
+        this.originQuestions = ap.qparams['originQuestions'];
+        return this.practiceService.getWordsForRepetition(this.setId);
       })
-      .subscribe((writingTest: WritingTest) => {
-        this.writingTest = writingTest;
-        this.currentQuestion = this.writingTest.questions[this.currentIndex];
+      .subscribe((words: Word[]) => {
+        this.words = words;
+        this.currentWord = this.words[this.currentIndex];
         this.initSound();
       });
   }
@@ -44,8 +45,8 @@ export class SelfCheckPracticeComponent implements OnInit {
     this.showCorrectAnswer = false;
     this.currentIndex++;
     this.updateProgress();
-    this.currentQuestion = this.writingTest.questions[this.currentIndex];
-    if (!this.currentQuestion) {
+    this.currentWord = this.words[this.currentIndex];
+    if (!this.currentWord) {
       this.finished = true;
       this.handleResults();
       return;
@@ -55,7 +56,7 @@ export class SelfCheckPracticeComponent implements OnInit {
   }
 
   private updateProgress() {
-    this.progress = (this.currentIndex / this.writingTest.questions.length) * 100;
+    this.progress = (this.currentIndex / this.words.length) * 100;
   }
 
   private check() {
@@ -72,13 +73,15 @@ export class SelfCheckPracticeComponent implements OnInit {
   }
 
   private markAs(value: boolean) {
-    this.answers.set(this.currentQuestion.answer.wordId, value);
+    this.answers.set(this.currentWord.id, value);
     this.nextWord();
   }
 
   private initSound(): void {
-    this.audio.src = this.currentQuestion.answer.pronunciation;
-    this.audio.load();
+    if (this.currentWord) {
+      this.audio.src = this.currentWord.sound;
+      this.audio.load();
+    }
   }
 
   private playSound() {
@@ -98,9 +101,9 @@ export class SelfCheckPracticeComponent implements OnInit {
     let correct: string[] = [];
     let incorrect: string[] = [];
 
-    for (let question of this.writingTest.questions) {
-      let isCorrect = this.answers.get(question.answer.wordId);
-      let text = question.questionText;
+    for (let word of this.words) {
+      let isCorrect = this.answers.get(word.id);
+      let text = word.text;
       if (isCorrect) {
         correct.push(text);
       } else {

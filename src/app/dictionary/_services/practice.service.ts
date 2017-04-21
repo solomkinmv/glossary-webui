@@ -6,6 +6,7 @@ import {JwtUtil} from "../../_util/jwt.util";
 import {WritingTest} from "../_models/writing-test";
 import {RestUtils} from "../../_util/rest.util";
 import {PracticeResults} from "../_models/practice-results";
+import {Word} from "../_models/word";
 
 @Injectable()
 export class PracticeService {
@@ -44,6 +45,20 @@ export class PracticeService {
       .map((response: Response) => response.json().writingPracticeTest as WritingTest)
       .do((writingTest: WritingTest) => console.log(writingTest))
       .catch(RestUtils.serverError);
+  }
+
+  public getWordsForRepetition(setId: number | string): Observable<Word[]> {
+    console.log(`PracticeService.getWordsForRepetition(${setId})`);
+
+    let searchParams = new URLSearchParams();
+    if (setId) {
+      searchParams.set("setId", setId.toString());
+    }
+    let options = JwtUtil.getRequestOptions();
+    options.search = searchParams;
+
+    return RestUtils.genericHandler(this.http.get(`/api/practices/repetitions`, options))
+      .map((response: Response) => response.json().words as Word[]);
   }
 
   public handleResults(answers: Map<number, boolean>): Observable<string> {

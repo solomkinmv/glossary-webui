@@ -22,7 +22,7 @@
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Quiz</h3>
-        <p class="card-text">Practice mode description.</p>
+        <p class="card-text">Learn new words by choosing from alternatives.</p>
       </div>
       <div class="card-footer">
         <a routerLink="quiz" [queryParams]="{originQuestions: true}"
@@ -35,7 +35,7 @@
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Writing test</h3>
-        <p class="card-text">Practice mode description.</p>
+        <p class="card-text">Practice your writing skills.</p>
       </div>
       <div class="card-footer">
         <a routerLink="writing" [queryParams]="{originQuestions: true}"
@@ -50,7 +50,8 @@
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Listening test</h3>
-        <p class="card-text">Practice mode description.</p>
+        <p class="card-text">The Audio Training improves your listening comprehension, as well as your writing
+          skills.</p>
       </div>
       <div class="card-footer">
         <a routerLink="listening" class="btn btn-secondary">Start</a>
@@ -59,14 +60,11 @@
 
     <div class="card">
       <div class="card-block">
-        <h3 class="card-title">Self check</h3>
-        <p class="card-text">Practice mode description.</p>
+        <h3 class="card-title">Pronunciation</h3>
+        <p class="card-text">Learn to pronounce words correctly.</p>
       </div>
       <div class="card-footer">
-        <a routerLink="check" [queryParams]="{originQuestions: true}"
-           class="btn btn-secondary" role="button" aria-pressed="true">Word - Translation</a>
-        <a routerLink="check" [queryParams]="{originQuestions: false}"
-           class="btn btn-secondary" role="button" aria-pressed="true">Translation - Word</a>
+        <a routerLink="pronunciation" class="btn btn-secondary">Start</a>
       </div>
     </div>
   </div>
@@ -75,7 +73,7 @@
     <div class="card">
       <div class="card-block">
         <h3 class="card-title">Flashcards</h3>
-        <p class="card-text">Practice mode description.</p>
+        <p class="card-text">Learn new words using flashcards.</p>
       </div>
       <div class="card-footer">
         <a routerLink="cards" class="btn btn-secondary">Start</a>
@@ -84,11 +82,14 @@
 
     <div class="card">
       <div class="card-block">
-        <h3 class="card-title">Pronunciation</h3>
-        <p class="card-text">Practice mode description.</p>
+        <h3 class="card-title">Repetition</h3>
+        <p class="card-text">Check that you remember already learnt words.</p>
       </div>
       <div class="card-footer">
-        <a routerLink="pronunciation" class="btn btn-secondary">Start</a>
+        <a routerLink="check" [queryParams]="{originQuestions: true}"
+           class="btn btn-secondary" role="button" aria-pressed="true">Word - Translation</a>
+        <a routerLink="check" [queryParams]="{originQuestions: false}"
+           class="btn btn-secondary" role="button" aria-pressed="true">Translation - Word</a>
       </div>
     </div>
   </div>
