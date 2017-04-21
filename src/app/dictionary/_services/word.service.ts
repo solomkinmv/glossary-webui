@@ -13,9 +13,9 @@ export class WordService {
   constructor(private http: Http) {
   }
 
-  public getAll(): Observable<Word> {
+  public getAll(): Observable<Word[]> {
     return this.http.get(`/api/words`, JwtUtil.getRequestOptions())
-      .switchMap((response: Response) => response.json()._embedded.wordResourceList.map(value => value.word) as Word[])
+      .map((response: Response) => response.json()._embedded.wordResourceList.map(value => value.word) as Word[])
   }
 
   public get(id: number | string): Observable<Word> {

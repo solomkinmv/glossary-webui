@@ -5,13 +5,14 @@ import {Word} from "../_models/word";
 import {WordSet} from "../_models/word-set";
 import {WordSetService} from "../_services/word-set.service";
 import {KeyCodes} from "../../_util/key-codes";
+import {WordService} from "../_services/word.service";
 
 @Component({
   templateUrl: 'cards-practice.component.html',
   styleUrls: ['cards-practice.component.scss']
 })
 export class CardsPracticeComponent implements OnInit {
-  private set: WordSet;
+  private words: Word[];
   private currentWord: Word;
   private currentIndex = 0;
   private progress: number = 0;
@@ -21,6 +22,7 @@ export class CardsPracticeComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private wordSetService: WordSetService,
+              private wordService: WordService,
               private location: Location) {
     this.keyActions.set(KeyCodes.DOWN, () => this.makeFlip());
     this.keyActions.set(KeyCodes.UP, () => this.makeFlip());
@@ -31,11 +33,27 @@ export class CardsPracticeComponent implements OnInit {
   ngOnInit(): void {
     console.log("CardsPracticeComponent init");
     this.route.params
-      .switchMap((params: Params) => this.wordSetService.get(+params['id']))
-      .subscribe((wordSet: WordSet) => {
-        this.set = wordSet;
-        this.currentWord = this.set.words[this.currentIndex];
+      .subscribe((params: Params) => {
+        let setId = +params['id'];
+        if (setId) {
+          this.wordSetService.get(setId)
+            .subscribe((wordSet: WordSet) => {
+              this.words = wordSet.words;
+              this.initCurrentWord();
+            })
+        } else {
+          this.wordService.getAll()
+            .subscribe((words: Word[]) => {
+              this.words = words;
+              this.initCurrentWord();
+            });
+        }
       });
+  }
+
+  private initCurrentWord() {
+    this.currentWord = this.words[this.currentIndex];
+    this.playSound();
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -49,15 +67,17 @@ export class CardsPracticeComponent implements OnInit {
 
   private updateWord() {
     this.updateProgress();
-    this.currentWord = this.set.words[this.currentIndex];
+    this.flip = false;
+    this.currentWord = this.words[this.currentIndex];
+    this.playSound();
   }
 
   private updateProgress() {
-    this.progress = (this.currentIndex / this.set.words.length) * 100;
+    this.progress = (this.currentIndex / this.words.length) * 100;
   }
 
   private next(): void {
-    if (this.currentIndex == this.set.words.length - 1) {
+    if (this.currentIndex == this.words.length - 1) {
       return;
     }
     this.currentIndex++;
