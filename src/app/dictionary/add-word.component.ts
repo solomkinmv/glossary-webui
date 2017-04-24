@@ -14,6 +14,7 @@ import {ImageService} from "./_services/image.service";
   templateUrl: 'add-word.component.html'
 })
 export class AddWordComponent {
+  private uploading: boolean;
   private newWord: Word;
   private alternativeTranslations: string[];
   private searchRecords: Observable<SearchRecord[]>;
@@ -110,10 +111,16 @@ export class AddWordComponent {
 
   private fileChange(files: FileList) {
     let file = files.item(0);
-    console.log(file);
-
+    if (!file) {
+      return;
+    }
+    this.uploading = true;
     this.imageService.uploadImage(file)
-      .subscribe((location: string) => this.newWord.image = location);
+      .subscribe(
+        (location: string) => {
+          this.newWord.image = location;
+          this.uploading = false;
+        }, err => this.uploading = false);
   }
 
   private addWordWithoutImage() {
