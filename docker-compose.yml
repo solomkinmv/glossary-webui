@@ -1,0 +1,16 @@
+version: '2' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  webui: # name of the first service
+    image: solomkinmv/glossary-webui:dev # specify the directory of the Dockerfile
+    ports:
+      - "4200:4200" # specify port forwarding
+
+  server: #name of the second service
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev,s3
+    image: solomkinmv/glossary:0.0.2-SNAPSHOT # specify the directory of the Dockerfile
+    ports:
+      - "8080:8080" #specify ports forwarding
+

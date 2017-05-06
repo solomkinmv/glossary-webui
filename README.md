@@ -29,3 +29,15 @@ Run `ng github-pages:deploy` to deploy to GitHub Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Docker
+
+Example commands:
+
+#### Build container
+
+`docker build -t glossary-webui:dev .`
+
+#### Run container
+
+`docker run --name glossary-webui -p 4200:4200 glossary-webui:dev`
