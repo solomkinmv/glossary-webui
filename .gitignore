@@ -98,3 +98,6 @@ cmake-build-release/
 # IntelliJ
 out/
 .idea/
+
+# Yarn
+/yarn.lock
