@@ -1,13 +1,13 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {AppAuthGuard} from "./_guards/auth.guard";
+import {AuthGuard} from "./_guards/auth.guard";
 import {AppComponent} from "./app.component";
 
 const appRoutes: Routes = [
   // {path: 'login', component: LoginComponent},
-  // {path: '*', component: AppComponent},
+  {path: '*', component: AppComponent},
   // {path: 'register', component: RegisterComponent},
-  // {path: 'dictionary', loadChildren: 'app/dictionary/dictionary.module#DictionaryModule', canLoad: [AuthGuard]},
+  {path: 'dictionary', loadChildren: 'app/dictionary/dictionary.module#DictionaryModule', canActivate: [AuthGuard]},
   // {path: 'profile', pathMatch: 'full', component: ProfileComponent, canActivate: [AuthGuard]},
   // {path: '', pathMatch: 'full', component: HomeComponent, canActivate: [AuthGuard]},
 
@@ -23,7 +23,7 @@ const appRoutes: Routes = [
   exports: [
     RouterModule
   ], providers: [
-    AppAuthGuard
+    AuthGuard
   ]
 })
 export class AppRoutingModule {

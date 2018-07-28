@@ -2,6 +2,6 @@
 root = true
 
 # 2 space indentation
-[*.ts]
+[*]
 indent_style = space
 indent_size = 2
