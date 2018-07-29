@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
 
 @Component({
@@ -7,13 +6,19 @@ import {KeycloakService} from "keycloak-angular";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit {
+  public loggedIn: boolean = false;
 
-  constructor(private keycloakAngular: KeycloakService) {
+  constructor(private authService: KeycloakService) {
   }
 
-  public logout() {
-    this.keycloakAngular.logout()
+  ngOnInit(): void {
+    console.log('AppComponent init');
+    this.authService.isLoggedIn().then((logged: boolean) => this.loggedIn = logged);
+  }
+
+  private logout(): void {
+    console.log('Logging out');
+    this.authService.logout();
   }
 }

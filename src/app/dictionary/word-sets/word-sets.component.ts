@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {Word} from "../_models/word";
+import {Component, OnInit} from '@angular/core';
 import {WordSetsService} from "../_services/word-sets.service";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {KeycloakService} from "keycloak-angular";
+import {WordSetMeta} from "../_models/word-set-meta";
+import {AlertService} from "../../_services/alert.service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-word-sets',
@@ -11,20 +13,43 @@ import {KeycloakService} from "keycloak-angular";
 })
 export class WordSetsComponent implements OnInit {
 
+  public sets: WordSetMeta[];
+  public set: WordSetMeta;
+
   constructor(private wordSetsService: WordSetsService,
-              private keycloak: KeycloakService) { }
+              private keycloak: KeycloakService,
+              private alertService: AlertService) {
+  }
 
   ngOnInit() {
     this.wordSetsService.getAll()
-      .subscribe(
-        (x => console.log('OK' + JSON.stringify(x))),
-        (x => console.log('ERROR' + JSON.stringify(x))),
-        (() => console.log('COMPLETE'))
-      );
+      .subscribe(sets => this.sets = sets);
+  }
 
-    console.log(this.keycloak.getKeycloakInstance().subject);
-    this.keycloak.loadUserProfile()
-      .then(profile => console.log(profile.id))
+  private startAddingWordSet(): void {
+    this.set = new WordSetMeta();
+  }
+
+  private editWordSet(wordSet: WordSetMeta): void {
+    this.set = wordSet;
+  }
+
+  private deleteWordSet(wordSet: WordSetMeta): void {
+    this.wordSetsService.remove(wordSet.id)
+      .subscribe(id => {
+          this.alertService.success("Removed Word Set");
+          this.sets = this.sets.filter(set => set.id != id);
+        },
+        err => this.alertService.error(err));
+  }
+
+  public onNotify(wordSet: WordSetMeta) {
+    console.log("on notify");
+    console.log(wordSet);
+    this.set = null;
+    if (wordSet != null) {
+      this.sets.push(wordSet);
+    }
   }
 
 }

@@ -1,10 +1,13 @@
 import {Word} from "./word";
 
 export class WordSet {
-  id: number;
-  name: string;
-  description: string;
-  words: Array<Word>;
+
+  constructor(public id: number,
+              public name: string,
+              public description: string,
+              public words: Array<Word>) {
+  }
+
 
   toString(): string {
     return `WordSet(id=${this.id},name=${this.name},description=${this.description},words=${this.words})`;

@@ -1,9 +1,47 @@
-<h1>
-  {{title}}
-</h1>
+<!-- main app container -->
+<div *ngIf="loggedIn" class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/">Glossary</a>
 
-<button routerLink="/dictionary">Dictionary</button>
-<button routerLink="">Home</button>
-<button (click)="logout()">Logout</button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" routerLink="/dictionary">Dictionary</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/dictionary/practice">Practice</a>
+        </li>
+      </ul>
 
-<router-outlet></router-outlet>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <alert></alert>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

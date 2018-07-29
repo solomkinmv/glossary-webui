@@ -6,10 +6,13 @@ import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {initializer} from "./app-init";
 import {AppRoutingModule} from "./app.routing";
 import {HttpClientModule} from "@angular/common/http";
+import {AlertService} from "./_services/alert.service";
+import {AlertComponent} from "./alert/alert.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import {HttpClientModule} from "@angular/common/http";
       useFactory: initializer,
       multi: true,
       deps: [KeycloakService]
-    }
+    },
+    AlertService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,14 @@
+<div *ngIf="wordSet">
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="wordSet.name" placeholder="name"/>
+
+    <label>description: </label>
+    <input [(ngModel)]="wordSet.description" placeholder="name"/>
+  </div>
+
+  <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+  <button class="btn btn-primary" (click)="saveChanges()" [disabled]="!wordSet.name || !wordSet.description">
+    Save
+  </button>
+</div>
