@@ -39,6 +39,7 @@ export class EditWordSetComponent {
     this.wordSetService.update(this.wordSet)
       .subscribe(
         set => {
+          this.notify.emit(set);
           this.alertService.success("Updated Word Set: " + set.name)
         },
         err => this.alertService.error(err));

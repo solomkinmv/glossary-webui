@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {WordSetsService} from "../_services/word-sets.service";
-import {Observable, Subject} from "rxjs";
 import {KeycloakService} from "keycloak-angular";
 import {WordSetMeta} from "../_models/word-set-meta";
 import {AlertService} from "../../_services/alert.service";
-import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-word-sets',
@@ -26,6 +24,17 @@ export class WordSetsComponent implements OnInit {
       .subscribe(sets => this.sets = sets);
   }
 
+  public onNotify(wordSet: WordSetMeta) {
+    console.log("on notify");
+    console.log(wordSet);
+    this.set = null;
+    if (wordSet == null) {
+      return;
+    }
+    this.sets = this.sets.filter(set => set.id != wordSet.id);
+    this.sets.push(wordSet);
+  }
+
   private startAddingWordSet(): void {
     this.set = new WordSetMeta();
   }
@@ -41,15 +50,6 @@ export class WordSetsComponent implements OnInit {
           this.sets = this.sets.filter(set => set.id != id);
         },
         err => this.alertService.error(err));
-  }
-
-  public onNotify(wordSet: WordSetMeta) {
-    console.log("on notify");
-    console.log(wordSet);
-    this.set = null;
-    if (wordSet != null) {
-      this.sets.push(wordSet);
-    }
   }
 
 }
