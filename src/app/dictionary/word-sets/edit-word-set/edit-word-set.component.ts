@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {AlertService} from "../../_services/alert.service";
-import {WordSetsService} from "../_services/word-sets.service";
-import {WordSetMeta} from "../_models/word-set-meta";
+import {AlertService} from "../../../_services/alert.service";
+import {WordSetsService} from "../../_services/word-sets.service";
+import {WordSetMeta} from "../../_models/word-set-meta";
 
 @Component({
   selector: 'add-word-set',

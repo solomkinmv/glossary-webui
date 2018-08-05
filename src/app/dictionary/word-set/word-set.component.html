@@ -1,0 +1,30 @@
+<div *ngIf="set">
+  <h2>{{set.name}}</h2>
+  <p>{{set.description}}</p>
+
+  <add-word [set]="set"></add-word>
+
+  <a routerLink="../../practice/{{set.id}}" class="btn btn-primary">Practice</a>
+  <ul class="list-group">
+    <li *ngFor="let word of set.words" class="list-group-item">
+      <div class="row align-items-center">
+        <div class="col-sm-2"><img src="{{word.image}}" class="img-thumbnail"></div>
+        <div class="col-sm-1">
+          <button class="btn btn-link btn-sm" type="button" (click)="playSound(word)">
+            <i class="btn fa fa-volume-up" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="col-sm-3">{{word.text}}</div>
+        <div class="col-sm-3">{{word.translation}}</div>
+        <div class="col-sm-2">
+          <span class="badge badge-default badge-pill">{{word.stage}}</span>
+        </div>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-link btn-sm" (click)="removeWord(word)">
+            <i class="fas fa-trash-alt" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

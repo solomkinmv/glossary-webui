@@ -1,0 +1,71 @@
+<div class="form-group">
+  <input type="text" (keyup)="search()"
+         (keyup.escape)="initSearch()"
+         class="form-control" placeholder="word"
+         [(ngModel)]="newWord.text">
+
+  <!--suggested words-->
+  <div class="list-group">
+    <a *ngFor="let record of searchRecords | async;"
+       (click)="chooseWord(record)" class="list-group-item list-group-item-action flex-column align-items-start">
+      {{record.text}} - {{record.translations.join(", ")}}
+    </a>
+    <a *ngIf="newWord.text" class="list-group-item list-group-item-action flex-column align-items-start">
+      <input type="text" (keyup.enter)="chooseTranslation(newWord.translation)"
+             (keyup.escape)="initSearch()" placeholder="translation"
+             class="form-control" [(ngModel)]="newWord.translation">
+    </a>
+  </div>
+
+  <!--suggested translations-->
+  <div class="list-group">
+    <a *ngFor="let translation of alternativeTranslations;"
+       (click)="chooseTranslation(translation)"
+       class="list-group-item list-group-item-action flex-column align-items-start">
+      {{translation}}
+    </a>
+  </div>
+</div>
+
+<app-modal>
+  <div class="app-modal-header">
+    {{newWord.text}}
+  </div>
+
+  <div class="app-modal-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#chooseImage" role="tab">Choose image</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#uploadImage" role="tab">Upload image</a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="chooseImage" role="tabpanel">
+        <a *ngFor="let image of newWordImages | async;" (click)="choosePicture(image)">
+          <img src="{{image}}" [class.highlightedImage]="highlightedImages.has(image)"
+               class="img-responsive img-thumbnail" style="width:auto;height:100px">
+        </a>
+      </div>
+
+      <div class="tab-pane" id="uploadImage" role="tabpanel">
+        <div class="form-group">
+
+          <input type="file" required (change)="fileChange(input.files)" #input/>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.hide()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="addWordWithoutImage()">No image</button>
+    <button type="button" class="btn btn-primary" (click)="addWord()" [disabled]="uploading">Save changes</button>
+  </div>
+</app-modal>

@@ -4,10 +4,15 @@ import {Observable, of} from "rxjs";
 import {catchError, map, tap} from "rxjs/operators";
 import {WordSet} from "../_models/word-set";
 import {WordSetMeta} from "../_models/word-set-meta";
+import {WordMeta} from "../_models/word-meta";
 
 @Injectable()
 export class WordSetsService {
   constructor(private http: HttpClient) {
+  }
+
+  public get(id: number): Observable<WordSet> {
+    return this.http.get<WordSet>(`api/words-service/word-sets/${id}`)
   }
 
   public getAll(): Observable<WordSetMeta[]> {
@@ -45,6 +50,18 @@ export class WordSetsService {
       )
   }
 
+  public removeWordFromWordSet(setId: number, wordId: number): Observable<null> {
+    console.log(`WordSetService.removeWordFromWordSet(setId = ${setId}, wordId = ${wordId})`);
+
+    return this.http.delete<null>(`/api/words-service/word-sets/${setId}/words/${wordId}`)
+  }
+
+  public addWordToWordSet(setId: number, word: WordMeta): Observable<WordSet> {
+    console.log(`WordSetService.addWordToWordSet(setId = ${setId}, word = ${JSON.stringify(word)})`);
+
+    return this.http.post<WordSet>(`/api/words-service/word-sets/${setId}/words`, word);
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -55,7 +72,7 @@ export class WordSetsService {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
-      console.error("error handler: " + error); // log to console instead
+      console.error(`error handler ${operation}: ${error}`); // log to console instead
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

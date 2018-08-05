@@ -9,29 +9,30 @@
 <add-word-set [wordSet]="set" (notify)="onNotify($event)"></add-word-set>
 
 <div class="row">
-
-  <div class="card-columns">
-    <div class="card"  *ngFor="let set of sets">
-      <div class="card-body">
-        <h6 class="card-subtitle mb-2 text-muted float-right">{{set.numberOfWords}} words</h6>
-        <h5 class="card-title">{{set.name}}</h5>
-        <p class="card-text">{{set.description}}</p>
-      </div>
-      <div class="card-footer">
-        <div class="btn-group btn-group-sm" role="group">
-          <a routerLink="set/{{set.id}}" class="btn btn-secondary">Details</a>
-          <a routerLink="practice/{{set.id}}" [class.disabled]="set.numberOfWords == 0"
-             class="btn btn-secondary">Practice</a>
+  <div class="col-sm">
+    <div class="card-columns">
+      <div class="card" *ngFor="let set of sets">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted float-right">{{set.numberOfWords}} words</h6>
+          <h5 class="card-title">{{set.name}}</h5>
+          <p class="card-text">{{set.description}}</p>
         </div>
+        <div class="card-footer">
+          <div class="btn-group btn-group-sm" role="group">
+            <a routerLink="set/{{set.id}}" class="btn btn-secondary">Details</a>
+            <a routerLink="practice/{{set.id}}" [class.disabled]="set.numberOfWords == 0"
+               class="btn btn-secondary">Practice</a>
+          </div>
 
-        <div class="btn-group btn-group-sm float-right" role="group">
+          <div class="btn-group btn-group-sm float-right" role="group">
 
-          <button type="button" class="btn btn-link" (click)="editWordSet(set)">
-            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-          </button>
-          <button type="button" class="btn btn-link" (click)="deleteWordSet(set)">
-            <i class="fas fa-trash-alt" aria-hidden="true"></i>
-          </button>
+            <button type="button" class="btn btn-link" (click)="editWordSet(set)">
+              <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-link" (click)="deleteWordSet(set)">
+              <i class="fas fa-trash-alt" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
