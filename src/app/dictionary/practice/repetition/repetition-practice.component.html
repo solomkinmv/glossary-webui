@@ -1,0 +1,46 @@
+<h1>Repetition</h1>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" [style.width.%]="progress" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<div *ngIf="currentWord">
+  <div class="form-group text-center">
+
+    <h2>{{currentWord.text}}</h2>
+
+    <div *ngIf="showCorrectAnswer">
+      <img src="{{currentWord.image}}" class="img-thumbnail mx-auto d-block">
+      <h4>
+        <a class="btn" role="button" aria-pressed="true" (click)="playSound()">
+          <i class="btn fa fa-volume-up" aria-hidden="true"></i>
+        </a>
+        {{currentWord.translation}}
+      </h4>
+
+      <button class="btn btn-success" (click)="markAsCorrect()">Correct</button>
+      <button class="btn btn-danger" (click)="markAsWrong()">Incorrect</button>
+    </div>
+  </div>
+
+  <div *ngIf="!showCorrectAnswer" class="form-group text-center">
+    <button class="btn btn-primary" (click)="check()">Check</button>
+  </div>
+</div>
+
+<div *ngIf="finished">
+  <practice-summary [summary]="summary()"></practice-summary>
+
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6 text-center mx-auto">
+      <div class="btn-group btn-group-justified" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Go to trainings</button>
+        <button type="button" class="btn btn-secondary" routerLink="/dictionary/set/{{setId}}">Go to set</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="words && words.length == 0">
+  <h2>No words to repeat. Try to learn new words!</h2>
+</div>

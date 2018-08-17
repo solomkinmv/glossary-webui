@@ -1,6 +1,6 @@
 <h2>Word Sets</h2>
 
-<div *ngIf="!set" class="row">
+<div *ngIf="!set" class="row mb-3">
   <div class="col-sm">
     <button class="btn btn-primary" (click)="startAddingWordSet()">Add Word Set</button>
   </div>
@@ -19,9 +19,9 @@
         </div>
         <div class="card-footer">
           <div class="btn-group btn-group-sm" role="group">
-            <a routerLink="set/{{set.id}}" class="btn btn-secondary">Details</a>
+            <a routerLink="set/{{set.id}}" class="btn btn-outline-primary">Details</a>
             <a routerLink="practice/{{set.id}}" [class.disabled]="set.numberOfWords == 0"
-               class="btn btn-secondary">Practice</a>
+               class="btn btn-outline-primary">Practice</a>
           </div>
 
           <div class="btn-group btn-group-sm float-right" role="group">

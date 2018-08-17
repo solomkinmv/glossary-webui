@@ -15,10 +15,9 @@ export class ImageService {
       params: {
         tags: word
       }
-    })
-      .pipe(
-        tap(res => console.log(res))
-      )
+    }).pipe(
+      tap(res => console.log(res))
+    )
   }
 
   public uploadImage(file: File): Observable<string> {

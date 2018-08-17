@@ -10,6 +10,15 @@ import {ModalComponent} from "./modal/modal.component";
 import {AddWordComponent} from "./word-set/add-word/add-word.component";
 import {ImageService} from "./_services/image.service";
 import {WordService} from "./_services/word.service";
+import {PracticeComponent} from "./practice/practice.component";
+import {CardsPracticeComponent} from "./practice/cards/cards-practice.component";
+import {ListeningPracticeComponent} from "./practice/listening/listening-practice.component";
+import {PracticeSummaryComponent} from "./practice/summary/practice-summary.component";
+import {PronunciationComponent} from "./practice/pronunciation/pronuncition.component";
+import {QuizPracticeComponent} from "./practice/quiz/quiz-practice.component";
+import {RepetitionPracticeComponent} from "./practice/repetition/repetition-practice.component";
+import {WritePracticeComponent} from "./practice/writing/write-practice.component";
+import {PracticeService} from "./practice/_services/practice.service";
 
 @NgModule({
   imports: [
@@ -23,12 +32,21 @@ import {WordService} from "./_services/word.service";
     WordSetComponent,
     ModalComponent,
     AddWordComponent,
-    WordSetComponent
+    WordSetComponent,
+    PracticeComponent,
+    CardsPracticeComponent,
+    ListeningPracticeComponent,
+    PracticeSummaryComponent,
+    PronunciationComponent,
+    QuizPracticeComponent,
+    RepetitionPracticeComponent,
+    WritePracticeComponent
   ],
   providers: [
     WordSetsService,
     WordService,
-    ImageService
+    ImageService,
+    PracticeService
   ]
 })
 export class DictionaryModule {

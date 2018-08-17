@@ -1,0 +1,128 @@
+<div *ngIf="sets" class="btn-group mt-3 mb-3" role="group">
+  <button *ngIf="currentSet" routerLink="/dictionary/set/{{currentSet.id}}" type="button" class="btn btn-primary">
+    List words
+  </button>
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+      {{setId ? currentSet.name : "All Words"}}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a *ngIf="setId" class="dropdown-item" routerLink="..">All Words</a>
+      <a *ngFor="let set of sets" class="dropdown-item"
+         routerLink="/dictionary/practice/{{set.id}}">
+        {{set.name}}
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm">
+    <div class="card-deck">
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Quiz</h5>
+          <p class="card-text">Learn new words by choosing from alternatives.</p>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group btn-group-sm" role="group">
+            <a routerLink="quiz" [queryParams]="{originQuestions: true}"
+               class="btn btn-outline-primary" role="button" aria-pressed="true">Word - Translation</a>
+            <a routerLink="quiz" [queryParams]="{originQuestions: false}"
+               class="btn btn-outline-primary" role="button" aria-pressed="true">Translation - Word</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 d-none d-sm-block d-md-none"></div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Writing test</h5>
+          <p class="card-text">Practice your writing skills.</p>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group btn-group-sm" role="group">
+            <a routerLink="writing" [queryParams]="{originQuestions: true}"
+               class="btn btn-outline-primary" role="button" aria-pressed="true">Word - Translation</a>
+            <a routerLink="writing" [queryParams]="{originQuestions: false}"
+               class="btn btn-outline-primary" role="button" aria-pressed="true">Translation - Word</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 d-none d-sm-block d-md-none"></div>
+      <div class="w-100 d-none d-md-block d-lg-none"></div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Listening test</h5>
+          <p class="card-text">
+            The Audio Training improves your listening comprehension, as well as your writing skills.
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group btn-group-sm" role="group">
+            <a routerLink="listening" class="btn btn-outline-primary">Start</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 d-none d-sm-block d-md-none"></div>
+      <div class="w-100 d-none d-lg-block"></div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Pronunciation</h5>
+          <p class="card-text">
+            Learn to pronounce words correctly.
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group btn-group-sm" role="group">
+            <a routerLink="pronunciation" class="btn btn-outline-primary">Start</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 d-none d-sm-block d-md-none"></div>
+      <div class="w-100 d-none d-md-block d-lg-none"></div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Flashcards</h5>
+          <p class="card-text">
+            Learn new words using flashcards.
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group btn-group-sm" role="group">
+            <a routerLink="cards" class="btn btn-outline-primary">Start</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 d-none d-sm-block d-md-none"></div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Repetition</h5>
+          <p class="card-text">
+            Check that you remember already learnt words.
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group btn-group-sm" role="group">
+            <a routerLink="repetition" [queryParams]="{originQuestions: true}"
+               class="btn btn-outline-primary" role="button" aria-pressed="true">Word - Translation</a>
+            <a routerLink="repetition" [queryParams]="{originQuestions: false}"
+               class="btn btn-outline-primary" role="button" aria-pressed="true">Translation - Word</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

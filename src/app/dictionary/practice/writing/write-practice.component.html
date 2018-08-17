@@ -1,0 +1,38 @@
+<h1>Training mode</h1>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" [style.width.%]="progress" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<div *ngIf="currentQuestion">
+  <div class="form-group">
+    <img src="{{currentQuestion.answer.image}}" class="img-thumbnail mx-auto d-block">
+
+    <h2>{{currentQuestion.questionText}}</h2>
+
+    <div *ngIf="showCorrectAnswer">
+      <h4 *ngIf="correctAnswer">Correct!</h4>
+      <h4 *ngIf="!correctAnswer">Wrong answer!</h4>
+      <h4>Your answer: {{answerText}}</h4>
+      <h4>Correct: {{currentQuestion.answer.answerText}}</h4>
+      <button class="btn btn-primary" (click)="nextWord()">Next</button>
+    </div>
+  </div>
+
+  <div *ngIf="!showCorrectAnswer" class="form-group col-sm-6">
+    <input [(ngModel)]="answerText" (keyup.enter)="answer()" placeholder="Input answer" class="form-control"/>
+  </div>
+</div>
+
+<div *ngIf="finished">
+  <practice-summary [summary]="summary"></practice-summary>
+
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6 text-center mx-auto">
+      <div class="btn-group btn-group-justified" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Go to trainings</button>
+        <button type="button" class="btn btn-secondary" routerLink="/dictionary/set/{{setId}}">Go to set</button>
+      </div>
+    </div>
+  </div>
+</div>

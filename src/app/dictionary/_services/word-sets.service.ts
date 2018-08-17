@@ -24,6 +24,15 @@ export class WordSetsService {
       );
   }
 
+  public getAllWithDetails(): Observable<WordSetMeta[]> {
+    return this.http.get<WordSet[]>('/api/words-service/word-sets/')
+      .pipe(
+        map(wordSetArray => wordSetArray.map(ws => new WordSetMeta(ws.id, ws.name, ws.description, ws.words.length))),
+        tap(wordSets => console.info('fetched word sets ' + JSON.stringify(wordSets))),
+        catchError(this.handleError('get word sets', []))
+      );
+  }
+
   public create(set: WordSetMeta): Observable<WordSetMeta> {
     console.log('WordSetService.create: ' + JSON.stringify(set));
     return this.http.post<number>('/api/words-service/word-sets/', set)
