@@ -1,27 +1,24 @@
 import {Component, HostListener, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Params} from "@angular/router";
-import {Word} from "../../_models/word";
-import {WordSet} from "../../_models/word-set";
-import {WordSetsService} from "../../_services/word-sets.service";
 import {KeyCodes} from "../_util/key-codes";
-import {PracticeService} from "../_services/practice.service";
+import {PracticeService, PracticeType} from "../_services/practice.service";
+import {GenericTest, GenericTestWord} from "../_models/generic-test";
 
 @Component({
   templateUrl: 'cards-practice.component.html',
   styleUrls: ['cards-practice.component.scss']
 })
 export class CardsPracticeComponent implements OnInit {
-  private words: Word[];
-  private currentWord: Word;
-  private currentIndex = 0;
+  public words: GenericTestWord[];
+  public currentWord: GenericTestWord;
+  public currentIndex = 0;
   private progress: number = 0;
-  private soundMap: Map<Word, any> = new Map<Word, any>();
-  private flip: boolean = false;
+  private soundMap: Map<GenericTestWord, any> = new Map<GenericTestWord, any>();
+  public flip: boolean = false;
   private keyActions: Map<number, () => void> = new Map<number, () => void>();
 
   constructor(private route: ActivatedRoute,
-              private wordSetsService: WordSetsService,
               private practiceService: PracticeService,
               private location: Location) {
     this.keyActions.set(KeyCodes.DOWN, () => this.makeFlip());
@@ -35,19 +32,11 @@ export class CardsPracticeComponent implements OnInit {
     this.route.params
       .subscribe((params: Params) => {
         let setId = +params['id'];
-        if (setId) {
-          this.wordSetsService.get(setId)
-            .subscribe((wordSet: WordSet) => {
-              this.words = wordSet.words;
-              this.initCurrentWord();
-            })
-        } else {
-          this.practiceService.genericTest()
-            .subscribe((words: Word[]) => {
-              this.words = words;
-              this.initCurrentWord();
-            });
-        }
+        this.practiceService.genericTest(setId, true, PracticeType.ALL)
+          .subscribe((genericTest: GenericTest) => {
+            this.words = genericTest.words;
+            this.initCurrentWord();
+          })
       });
   }
 

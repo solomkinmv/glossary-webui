@@ -7,7 +7,7 @@ import {Summary} from "../_models/summary";
 })
 export class PracticeSummaryComponent implements OnInit {
   @Input() summary: Summary;
-  private score: number;
+  public score: number;
 
   ngOnInit(): void {
     this.score = (this.summary.correct.length / (this.summary.correct.length + this.summary.incorrect.length)) * 100;

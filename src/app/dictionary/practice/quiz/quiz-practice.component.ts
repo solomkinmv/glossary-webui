@@ -11,8 +11,8 @@ import {map, switchMap} from "rxjs/operators";
   templateUrl: 'quiz-practice.component.html'
 })
 export class QuizPracticeComponent implements OnInit {
-  private setId: number;
-  private quiz: Quiz;
+  public setId: number;
+  public quiz: Quiz;
   private currentIndex = 0;
   public currentQuestion: QuizQuestion;
   public highlightOnAnswer = new Map<string, string>();

@@ -1,26 +1,25 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {PracticeService} from "../_services/practice.service";
+import {PracticeService, PracticeType} from "../_services/practice.service";
 import {Summary} from "../_models/summary";
-import {Word} from "../../_models/word";
 import {combineLatest} from "rxjs";
 import {map, switchMap} from "rxjs/operators";
-import {GenericTest} from "../_models/generic-test";
+import {GenericTest, GenericTestWord} from "../_models/generic-test";
 
 @Component({
   templateUrl: 'repetition-practice.component.html'
 })
 export class RepetitionPracticeComponent implements OnInit {
-  private setId: number;
-  private currentWord: Word;
+  public setId: number;
+  public currentWord: GenericTestWord;
   private currentIndex = 0;
   private answers = new Map<number, boolean>();
-  private finished = false;
-  private showCorrectAnswer = false;
-  private progress: number = 0;
+  public finished = false;
+  public showCorrectAnswer = false;
+  public progress: number = 0;
   private audio = new Audio();
-  private words: Word[];
+  public words: GenericTestWord[];
   private originQuestions: any;
 
   constructor(private route: ActivatedRoute,
@@ -36,7 +35,7 @@ export class RepetitionPracticeComponent implements OnInit {
         switchMap(ap => {
           this.setId = +ap.params['id'];
           this.originQuestions = ap.qparams['originQuestions'];
-          return this.practiceService.genericTest(this.setId);
+          return this.practiceService.genericTest(this.setId, true, PracticeType.LEARNED_FIRST);
         }))
       .subscribe((genericTest: GenericTest) => {
         this.words = genericTest.words;
@@ -77,7 +76,7 @@ export class RepetitionPracticeComponent implements OnInit {
   }
 
   private markAs(value: boolean) {
-    this.answers.set(this.currentWord.id, value);
+    this.answers.set(this.currentWord.wordId, value);
     this.nextWord();
   }
 
@@ -106,7 +105,7 @@ export class RepetitionPracticeComponent implements OnInit {
     let incorrect: string[] = [];
 
     for (let word of this.words) {
-      let isCorrect = this.answers.get(word.id);
+      let isCorrect = this.answers.get(word.wordId);
       let text = word.text;
       if (isCorrect) {
         correct.push(text);

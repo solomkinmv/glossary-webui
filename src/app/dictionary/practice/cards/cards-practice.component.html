@@ -1,5 +1,17 @@
 <button type="button" class="btn btn-secondary" (click)="goBack()">Back</button>
 
+
+<div class="mb-3 row">
+  <div class="col-sm-offset-3 col-sm-6 text-center mx-auto">
+    <div class="btn-group btn-group-justified" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-secondary" (click)="previous()" [disabled]="currentIndex == 0">Previous
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="makeFlip()">Flip</button>
+      <button type="button" class="btn btn-secondary" (click)="next()" [disabled]="">Next</button>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="currentWord" class="row">
   <div class="col-sm-6 col-lg-4 mx-auto">
     <div class="flip-container" id="flipFrame">
@@ -13,7 +25,7 @@
               <div class="card-block">
                 <h4 class="card-title">
                   <a class="btn" role="button" aria-pressed="true" (click)="playSound()">
-                    <i class="btn fa fa-volume-up" aria-hidden="true"></i>
+                    <i class="fas fa-volume-up" aria-hidden="true"></i>
                   </a>
                   {{currentWord.text}}</h4>
               </div>
@@ -36,17 +48,6 @@
         </div>
       </div>
       <!-- End Card Flip -->
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-offset-3 col-sm-6 text-center mx-auto">
-    <div class="btn-group btn-group-justified" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-secondary" (click)="previous()" [disabled]="currentIndex == 0">Previous
-      </button>
-      <button type="button" class="btn btn-secondary" (click)="makeFlip()">Flip</button>
-      <button type="button" class="btn btn-secondary" (click)="next()" [disabled]="">Next</button>
     </div>
   </div>
 </div>

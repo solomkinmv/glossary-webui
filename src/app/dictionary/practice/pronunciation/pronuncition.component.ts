@@ -3,29 +3,27 @@ import {SpeechRecognitionService} from "../_services/speech-recognition.service"
 import {ActivatedRoute, Params} from "@angular/router";
 import {Location} from "@angular/common";
 import {PracticeService} from "../_services/practice.service";
-import {WritingTest, WritingTestQuestion} from "../_models/writing-test";
 import {Summary} from "../_models/summary";
 import {AlertService} from "../../../_services/alert.service";
 import {switchMap} from "rxjs/operators";
+import {GenericTest, GenericTestWord} from "../_models/generic-test";
 
 @Component({
   templateUrl: 'pronunciation.component.html'
 })
 
 export class PronunciationComponent implements OnInit, OnDestroy {
-  // showSearchButton: boolean;
-  // speechData: string;
-  private recording: boolean;
-  private setId: number;
-  private writingTest: WritingTest;
-  private currentQuestion: WritingTestQuestion;
+  public recording: boolean;
+  public setId: number;
+  public genericTest: GenericTest;
+  public currentWord: GenericTestWord;
   private currentIndex = 0;
-  private answerText: string = "";
+  public answerText: string = "";
   private answers = new Map<number, boolean>();
-  private finished = false;
-  private showCorrectAnswer = false;
-  private progress: number = 0;
-  private correctAnswer: boolean = false;
+  public finished = false;
+  public showCorrectAnswer = false;
+  public progress: number = 0;
+  public correctAnswer: boolean = false;
   private audio = new Audio();
 
   constructor(private route: ActivatedRoute,
@@ -40,11 +38,11 @@ export class PronunciationComponent implements OnInit, OnDestroy {
     this.route.params.pipe(
       switchMap((params: Params) => {
         this.setId = +params['id'];
-        return this.practiceService.getWritingTest(this.setId, false);
+        return this.practiceService.genericTest(this.setId, true);
       }))
-      .subscribe((writingTest: WritingTest) => {
-        this.writingTest = writingTest;
-        this.currentQuestion = this.writingTest.questions[this.currentIndex];
+      .subscribe((genericTest: GenericTest) => {
+        this.genericTest = genericTest;
+        this.currentWord = this.genericTest.words[this.currentIndex];
         this.initSound();
       });
   }
@@ -88,7 +86,7 @@ export class PronunciationComponent implements OnInit, OnDestroy {
   }
 
   private checkAnswer(): void {
-    if (this.currentQuestion.answer.answerText.toLowerCase() === this.answerText.toLowerCase()) {
+    if (this.currentWord.text.toLowerCase() === this.answerText.toLowerCase()) {
       this.answer(true);
     }
   }
@@ -102,9 +100,9 @@ export class PronunciationComponent implements OnInit, OnDestroy {
     this.correctAnswer = correctAnswer;
     this.stopRecording();
     this.currentIndex++;
-    this.progress = (this.answers.size / this.writingTest.questions.length) * 100;
+    this.progress = (this.answers.size / this.genericTest.words.length) * 100;
 
-    this.answers.set(this.currentQuestion.answer.wordId, correctAnswer);
+    this.answers.set(this.currentWord.wordId, correctAnswer);
 
     this.showCorrectAnswer = true;
     this.playSound();
@@ -112,8 +110,8 @@ export class PronunciationComponent implements OnInit, OnDestroy {
 
   private nextWord() {
     this.showCorrectAnswer = false;
-    this.currentQuestion = this.writingTest.questions[this.currentIndex];
-    if (this.writingTest.questions.length == this.currentIndex) {
+    this.currentWord = this.genericTest.words[this.currentIndex];
+    if (this.genericTest.words.length == this.currentIndex) {
       this.finished = true;
       this.handleResults();
       return;
@@ -124,12 +122,12 @@ export class PronunciationComponent implements OnInit, OnDestroy {
   }
 
   private initSound(): void {
-    this.audio.src = this.currentQuestion.answer.pronunciation;
+    this.audio.src = this.currentWord.sound;
     this.audio.load();
     this.playSound();
   }
 
-  private playSound() {
+  private playSound(): void {
     this.audio.play();
   }
 
@@ -146,9 +144,9 @@ export class PronunciationComponent implements OnInit, OnDestroy {
     let correct: string[] = [];
     let incorrect: string[] = [];
 
-    for (let question of this.writingTest.questions) {
-      let isCorrect = this.answers.get(question.answer.wordId);
-      let text = question.questionText;
+    for (let word of this.genericTest.words) {
+      let isCorrect = this.answers.get(word.wordId);
+      let text = word.text;
       if (isCorrect) {
         correct.push(text);
       } else {

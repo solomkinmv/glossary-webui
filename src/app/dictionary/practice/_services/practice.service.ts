@@ -4,7 +4,6 @@ import {Quiz} from "../_models/quiz";
 import {WritingTest} from "../_models/writing-test";
 import {PracticeResults} from "../_models/practice-results";
 import {HttpClient} from "@angular/common/http";
-import {Word} from "../../_models/word";
 import {RestUtils} from "../../../_util/rest.util";
 import {GenericTest} from "../_models/generic-test";
 
@@ -24,7 +23,6 @@ export class PracticeService {
     }
 
     console.log(`Get quiz with parameters: ${JSON.stringify(params)}`);
-    console.log(params);
 
     return this.http.get<Quiz>('/api/words-service/practices/quiz', {
       params: params
@@ -46,13 +44,22 @@ export class PracticeService {
     });
   }
 
-  public genericTest(setId: number = NaN): Observable<GenericTest> {
-    console.log(`PracticeService.getWordsForRepetition(setId = ${setId})`);
+  public genericTest(setId: number = NaN,
+                     originQuestions: boolean = true,
+                     practiceType: PracticeType = null): Observable<GenericTest> {
 
-    let params = {};
+    console.log(`PracticeService.getWordsForRepetition(setId = ${setId}, originQuestion = ${originQuestions}, practiceType = ${practiceType})`);
+
+    const params = {
+      originQuestions: originQuestions.toString()
+    };
     if (setId) {
-      params = {setId: setId.toString()}
+      params["setId"] = setId.toString();
     }
+    if (practiceType) {
+      params["practiceType"] = practiceType;
+    }
+
     return this.http.get<GenericTest>(`/api/words-service/practices/generic`, {
       params: params
     });
@@ -64,4 +71,10 @@ export class PracticeService {
 
     return this.http.post<void>('/api/words-service/practices', practiceResults);
   }
+}
+
+export enum PracticeType {
+  LEARNING = "LEARNING",
+  LEARNED_FIRST = "LEARNED_FIRST",
+  ALL = "ALL"
 }

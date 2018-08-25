@@ -11,18 +11,18 @@ import {PracticeService} from "../_services/practice.service";
   templateUrl: 'write-practice.component.html'
 })
 export class WritePracticeComponent implements OnInit {
-  private setId: number;
-  private writingTest: WritingTest;
-  private currentQuestion: WritingTestQuestion;
+  public setId: number;
+  public writingTest: WritingTest;
+  public currentQuestion: WritingTestQuestion;
   private currentIndex = 0;
-  private answerText: string;
+  public answerText: string;
   private answers = new Map<number, boolean>();
-  private finished = false;
-  private showCorrectAnswer = false;
-  private progress: number = 0;
-  private correctAnswer: boolean = false;
+  public finished = false;
+  public showCorrectAnswer = false;
+  public progress: number = 0;
+  public correctAnswer: boolean = false;
   private audio = new Audio();
-  private summary: Summary = new Summary([], []);
+  public summary: Summary = new Summary([], []);
 
   constructor(private route: ActivatedRoute,
               private practiceService: PracticeService,

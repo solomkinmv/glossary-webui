@@ -19,6 +19,7 @@ import {QuizPracticeComponent} from "./practice/quiz/quiz-practice.component";
 import {RepetitionPracticeComponent} from "./practice/repetition/repetition-practice.component";
 import {WritePracticeComponent} from "./practice/writing/write-practice.component";
 import {PracticeService} from "./practice/_services/practice.service";
+import {SpeechRecognitionService} from "./practice/_services/speech-recognition.service";
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import {PracticeService} from "./practice/_services/practice.service";
     WordSetsService,
     WordService,
     ImageService,
-    PracticeService
+    PracticeService,
+    SpeechRecognitionService
   ]
 })
 export class DictionaryModule {
