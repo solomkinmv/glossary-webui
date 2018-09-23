@@ -5,6 +5,7 @@ import {catchError, map, tap} from "rxjs/operators";
 import {WordSet} from "../_models/word-set";
 import {WordSetMeta} from "../_models/word-set-meta";
 import {WordMeta} from "../_models/word-meta";
+import {RestUtils} from "../../_util/rest.util";
 
 @Injectable()
 export class WordSetsService {
@@ -20,7 +21,7 @@ export class WordSetsService {
       .pipe(
         map(wordSetArray => wordSetArray.map(ws => new WordSetMeta(ws.id, ws.name, ws.description, ws.words.length))),
         tap(wordSets => console.info('fetched word sets ' + JSON.stringify(wordSets))),
-        catchError(this.handleError('get word sets', []))
+        catchError(RestUtils.handleError('get word sets', []))
       );
   }
 
@@ -29,7 +30,7 @@ export class WordSetsService {
       .pipe(
         map(wordSetArray => wordSetArray.map(ws => new WordSetMeta(ws.id, ws.name, ws.description, ws.words.length))),
         tap(wordSets => console.info('fetched word sets ' + JSON.stringify(wordSets))),
-        catchError(this.handleError('get word sets', []))
+        catchError(RestUtils.handleError('get word sets', []))
       );
   }
 
@@ -71,20 +72,4 @@ export class WordSetsService {
     return this.http.post<WordSet>(`/api/words-service/word-sets/${setId}/words`, word);
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(`error handler ${operation}: ${error}`); // log to console instead
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
 }

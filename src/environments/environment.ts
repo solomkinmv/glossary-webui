@@ -5,7 +5,7 @@
 import {KeycloakConfig} from "keycloak-angular";
 
 let keycloakConfig: KeycloakConfig = {
-  url: 'http://localhost:8000/auth',
+  url: 'http://localhost:30880/auth',
   realm: 'glossary',
   clientId: 'glossary-web-client'
 };

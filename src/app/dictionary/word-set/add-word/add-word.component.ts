@@ -15,10 +15,10 @@ import {WordMeta} from "../../_models/word-meta";
   templateUrl: 'add-word.component.html'
 })
 export class AddWordComponent {
-  private uploading: boolean;
+  public uploading: boolean;
   public newWord: WordMeta;
-  private alternativeTranslations: string[];
-  private searchRecords: Observable<SearchRecord[]>;
+  public alternativeTranslations: string[];
+  public searchRecords: Observable<SearchRecord[]>;
   private searchTerms = new Subject<string>();
   public newWordImages: Observable<string[]>;
   public highlightedImages = new Set<string>();

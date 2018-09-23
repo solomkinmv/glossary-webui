@@ -20,6 +20,7 @@ import {RepetitionPracticeComponent} from "./practice/repetition/repetition-prac
 import {WritePracticeComponent} from "./practice/writing/write-practice.component";
 import {PracticeService} from "./practice/_services/practice.service";
 import {SpeechRecognitionService} from "./practice/_services/speech-recognition.service";
+import {TranslateService} from "./_services/translate.service";
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import {SpeechRecognitionService} from "./practice/_services/speech-recognition.
     WordService,
     ImageService,
     PracticeService,
-    SpeechRecognitionService
+    SpeechRecognitionService,
+    TranslateService
   ]
 })
 export class DictionaryModule {

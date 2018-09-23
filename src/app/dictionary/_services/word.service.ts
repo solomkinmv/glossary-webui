@@ -3,12 +3,16 @@ import {Word} from "../_models/word";
 
 import {SearchRecord} from "../_models/search-record";
 import {HttpClient} from "@angular/common/http";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {WordMeta} from "../_models/word-meta";
+import {TranslateService} from "./translate.service";
+import {map} from "rxjs/operators";
+import {TranslateResult} from "../_models/translate-result";
 
 @Injectable()
 export class WordService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private translateService: TranslateService) {
   }
 
   public get(id: number): Observable<Word> {
@@ -21,7 +25,10 @@ export class WordService {
 
   public search(term: string): Observable<SearchRecord[]> {
     console.log(`WordService.search(term = ${term})`);
-    const dummySearchRecord = new SearchRecord(term, ['dummy-translation'], [], '');
-    return of([dummySearchRecord]);
+
+    return this.translateService.translate(term)
+      .pipe(
+        map((translateResult: TranslateResult) => [new SearchRecord(term, translateResult.result, [], '')]),
+      );
   }
 }
